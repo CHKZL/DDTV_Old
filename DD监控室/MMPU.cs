@@ -54,7 +54,17 @@ namespace DD监控室
                 }
                 else
                 {
-                    return false;
+                     objPinReply = objPingSender.Send("223.6.6.6", intTimeout, buffer, objPinOptions);
+                     strInfo = objPinReply.Status.ToString();
+                    if (strInfo == "Success")
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    
                 }
             }
             catch (Exception ex)

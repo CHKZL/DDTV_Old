@@ -74,7 +74,7 @@ namespace DD监控室
                         string 服务器版本 = MMPU.get返回网页内容("https://github.com/CHKZL/DDTV/raw/master/src/Ver.ini");
                         if (ver != 服务器版本)
                         {
-                            DialogResult dr = MessageBox.Show("====有新版本可以更新====\n\n最新版本:" + 服务器版本 + "\n本地版本:" + ver + "\n\n点击确定转到最新版本网站", "有新版本", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            DialogResult dr = MessageBox.Show("====有新版本可以更新====\n\n最新版本:" + 服务器版本 + "\n本地版本:" + ver + "\n\n点击确定转到本项目github页面下载", "有新版本", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                             if (dr == DialogResult.OK)
                             {
                                 System.Diagnostics.Process.Start("https://github.com/CHKZL/DDTV");
