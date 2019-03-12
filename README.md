@@ -8,6 +8,12 @@ DD导播中心
 而且浏览器页面不方便平铺。  
 估摸着可以给DD国添砖加瓦，就想了一下需求，DUANG~就变出来了。
 
+## 写给不会使用gayhub的
+1.点击上面的那个绿色的“Clone or download”  
+2.点击“Download ZIP”  
+3.解压下载的压缩包  
+4.运行文件在“\DD监控室\bin\Debug\DD监控室.exe”
+
 ## 关于监控列表
 因为我自己平时也在用，所以会默认有一些，如果不需要，选择过后点击删除就行。  
 或者把软件执行文件根目录中的RoomListConfig.ini文件删除，把new.ini重命名为RoomListConfig.ini即可。

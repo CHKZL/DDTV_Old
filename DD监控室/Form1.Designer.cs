@@ -249,8 +249,6 @@
             // 选择直播
             // 
             this.选择直播.FormattingEnabled = true;
-            this.选择直播.Items.AddRange(new object[] {
-            "添加一个新监控"});
             this.选择直播.Location = new System.Drawing.Point(72, 185);
             this.选择直播.Name = "选择直播";
             this.选择直播.Size = new System.Drawing.Size(115, 20);

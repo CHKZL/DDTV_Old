@@ -113,9 +113,13 @@ namespace DD监控室
 
                 VLCPlayer vlcPlayer = new VLCPlayer();
                 VLC.Add(vlcPlayer);
-
                 A.ResizeEnd += A_ResizeEnd(A);
             }
+        }
+
+        private void A_Activated(object sender, EventArgs e)
+        {
+            MessageBox.Show("新窗口的Load事件下的信息框");//加载新窗口时显示信息框
         }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
@@ -175,7 +179,7 @@ namespace DD监控室
 
             选择直播.Items.Remove("添加一个新监控");
             选择直播.Items.Add((直播流的数量 - 1).ToString());
-            选择直播.Items.Add("添加一个新监控");
+            //选择直播.Items.Add("添加一个新监控");
             当前选择的直播流 = 直播流的数量;
             int TS1 = 当前选择的直播流;
             int TS2 = TS1 - 1;
@@ -226,6 +230,7 @@ namespace DD监控室
                              
                               if (F1.Size != FSize[int.Parse(F1.Name)])
                               {
+                                 
                                   当前选择的直播流 = 标号;
                                   更新控件大小();
                                   FSize[int.Parse(F1.Name)] = F1.Size;

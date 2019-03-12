@@ -8,4 +8,3 @@ D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.cspro
 D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.exe
 D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.pdb
 D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\bin\Debug\Newtonsoft.Json.dll
-D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.csprojResolveAssemblyReference.cache
