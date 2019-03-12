@@ -34,7 +34,7 @@ namespace DD监控室
         public bool 初次启动判断 = true;
         public Size 播放窗体默认大小 = new Size(720,440);
         public int 选中的房间目录 = 0;
-        public string ver = "";
+        public string ver = "1.0.1.1";
 
         public Point 界面左上角坐标 = new Point(3, 3);
 
@@ -69,7 +69,8 @@ namespace DD监控室
                 {
                     if (MMPU.测试网络("223.5.5.5"))
                     {
-                        ver = MMPU.读取文件("./config.ini");
+                        //MMPU.储存文件("./config.ini",ver);
+                       // ver = MMPU.读取文件("./config.ini");
                         string 服务器版本 = MMPU.get返回网页内容("https://github.com/CHKZL/DDTV/raw/master/src/Ver.ini");
                         if (ver != 服务器版本)
                         {
