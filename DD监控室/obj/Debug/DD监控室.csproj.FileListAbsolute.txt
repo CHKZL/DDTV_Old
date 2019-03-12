@@ -1,0 +1,11 @@
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\bin\Debug\DD监控室.exe.config
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\bin\Debug\DD监控室.exe
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\bin\Debug\DD监控室.pdb
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.Form1.resources
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.Properties.Resources.resources
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.csproj.GenerateResource.Cache
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.csproj.CoreCompileInputs.cache
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.exe
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.pdb
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\bin\Debug\Newtonsoft.Json.dll
+D:\OneDrive\代码库\C#\Git\DD播放器\DD监控室\obj\Debug\DD监控室.csprojResolveAssemblyReference.cache
