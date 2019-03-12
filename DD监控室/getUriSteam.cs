@@ -10,6 +10,7 @@ namespace DD监控室
 {
     public class getUriSteam
     {
+        public static int 流编号 = 0;
         public static string getBiliRoomId(string ID)
         {
             //读取设置
@@ -149,7 +150,7 @@ namespace DD监控室
             try
             {
                 var jsonResult = JObject.Parse(resultString);
-                var trueUrl = jsonResult["data"]["durl"][0]["url"].ToString();
+                var trueUrl = jsonResult["data"]["durl"][流编号]["url"].ToString();
                 Console.WriteLine("地址解析成功：" + trueUrl);
                 return trueUrl;
             }

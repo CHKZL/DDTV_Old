@@ -45,6 +45,7 @@ namespace DD监控室
 
 
         public string 最近一个操作的房间号 = "";
+        
         private void Form1_Load(object sender, EventArgs e)
         {
 
@@ -449,6 +450,22 @@ namespace DD监控室
             }
         }
 
+        private int 流选择()
+        {
+            switch(流.Text)
+            {
+                case "主线":
+                    return 0;
+                case "备线1":
+                    return 1;
+                case "备线2":
+                    return 2;
+                case "备线3":
+                    return 3;
+            }
+            return 0;
+        }
+
         private void button6_Click_1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(RoomNametext.Text))
@@ -571,6 +588,25 @@ namespace DD监控室
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
+        }
+
+        private void 流_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (流.Text)
+            {
+                case "主线":
+                    getUriSteam.流编号 = 0;
+                    break;
+                case "备线1":
+                    getUriSteam.流编号 = 1;
+                    break;
+                case "备线2":
+                    getUriSteam.流编号 = 2;
+                    break;
+                case "备线3":
+                    getUriSteam.流编号 = 3;
+                    break;
+            }
         }
     }
 }

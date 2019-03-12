@@ -51,6 +51,8 @@
             this.选择直播 = new System.Windows.Forms.ComboBox();
             this.skinEngine1 = new Sunisoft.IrisSkin.SkinEngine();
             this.DDTV = new System.Windows.Forms.NotifyIcon(this.components);
+            this.流 = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +70,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(17, 106);
+            this.button1.Location = new System.Drawing.Point(524, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(65, 23);
             this.button1.TabIndex = 2;
@@ -79,7 +81,7 @@
             // T1
             // 
             this.T1.Enabled = false;
-            this.T1.Location = new System.Drawing.Point(60, 79);
+            this.T1.Location = new System.Drawing.Point(567, -15);
             this.T1.Name = "T1";
             this.T1.Size = new System.Drawing.Size(151, 21);
             this.T1.TabIndex = 3;
@@ -87,24 +89,21 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.流);
             this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.RoomNametext);
             this.groupBox1.Controls.Add(this.button7);
             this.groupBox1.Controls.Add(this.button6);
             this.groupBox1.Controls.Add(this.listBox);
-            this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.biliRoomId);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.选择直播);
             this.groupBox1.Controls.Add(this.trackBar1);
-            this.groupBox1.Controls.Add(this.T1);
             this.groupBox1.Location = new System.Drawing.Point(12, 70);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(492, 254);
@@ -172,7 +171,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(157, 106);
+            this.button5.Location = new System.Drawing.Point(664, 12);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(52, 23);
             this.button5.TabIndex = 12;
@@ -219,7 +218,7 @@
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(88, 106);
+            this.button2.Location = new System.Drawing.Point(595, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(65, 23);
             this.button2.TabIndex = 7;
@@ -231,7 +230,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Enabled = false;
-            this.label2.Location = new System.Drawing.Point(13, 82);
+            this.label2.Location = new System.Drawing.Point(520, -12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 6;
@@ -240,7 +239,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 188);
+            this.label1.Location = new System.Drawing.Point(11, 182);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 5;
@@ -249,7 +248,7 @@
             // 选择直播
             // 
             this.选择直播.FormattingEnabled = true;
-            this.选择直播.Location = new System.Drawing.Point(72, 185);
+            this.选择直播.Location = new System.Drawing.Point(70, 177);
             this.选择直播.Name = "选择直播";
             this.选择直播.Size = new System.Drawing.Size(115, 20);
             this.选择直播.TabIndex = 4;
@@ -271,12 +270,41 @@
             this.DDTV.Visible = true;
             this.DDTV.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
+            // 流
+            // 
+            this.流.FormattingEnabled = true;
+            this.流.Items.AddRange(new object[] {
+            "主线",
+            "备线1",
+            "备线2",
+            "备线3"});
+            this.流.Location = new System.Drawing.Point(88, 76);
+            this.流.Name = "流";
+            this.流.Size = new System.Drawing.Size(121, 20);
+            this.流.TabIndex = 19;
+            this.流.Text = "主线";
+            this.流.SelectedIndexChanged += new System.EventHandler(this.流_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(23, 79);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "流选择";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(516, 330);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.T1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button5);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(516, 330);
             this.MinimumSize = new System.Drawing.Size(516, 330);
@@ -288,6 +316,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -313,6 +342,8 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.NotifyIcon DDTV;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox 流;
     }
 }
 
