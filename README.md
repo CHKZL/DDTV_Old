@@ -16,7 +16,9 @@ DD导播中心
 
 ## 关于监控列表
 因为我自己平时也在用，所以会默认有一些，如果不需要，选择过后点击删除就行。  
-或者把软件执行文件根目录中的RoomListConfig.ini文件删除，把new.ini重命名为RoomListConfig.ini即可。
+或者把软件执行文件根目录中的RoomListConfig.ini文件删除，把new.ini重命名为RoomListConfig.ini即可。  
+
+### 在更新软件的时候请备份好RoomListConfig.ini文件，该文件是监控房间配置文件
 
 ## 界面
 主界面

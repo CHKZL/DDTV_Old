@@ -120,10 +120,6 @@ namespace DD监控室
             }
         }
 
-        private void A_Activated(object sender, EventArgs e)
-        {
-            MessageBox.Show("新窗口的Load事件下的信息框");//加载新窗口时显示信息框
-        }
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
@@ -213,65 +209,77 @@ namespace DD监控室
                 VLC.Add(vlcPlayer);
 
                 A.ResizeEnd += A_ResizeEnd;
-                A.Activated += A_Activated1;
+                A.Activated += A_Activated;
+                A.FormClosing += A_FormClosing; 
             }
+        }
+
+        private void A_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Form F1 = sender as Form;
+            int 标号 = int.Parse(F1.Name);
+            VLC[标号].Stop();
+            选择直播.Items.Remove(标号.ToString());
+            RInfo[标号].Ty = false;
+            //更新直播窗体(标号, 最近一个操作的房间号);
         }
 
         private void A_ResizeEnd(object sender, EventArgs e)
         {
             Form F1 = sender as Form;
             int 标号 = int.Parse(F1.Name);
+            当前选择的直播流 = 标号;
+            更新控件大小();
+            FSize[int.Parse(F1.Name)] = F1.Size;
 
-            try
-            {
-                if (F1.Visible && F1.Name != "0")
-                {
-                    if (F1.Size != FSize[int.Parse(F1.Name)])
-                    {
+            //try
+            //{
+            //    if (F1.Visible && F1.Name != "0")
+            //    {
+            //        if (F1.Size != FSize[int.Parse(F1.Name)])
+            //        {
 
-                        当前选择的直播流 = 标号;
-                        更新控件大小();
-                        FSize[int.Parse(F1.Name)] = F1.Size;
-                    }
+                      
+            //        }
 
-                    if (VLC[标号].获取播放状态() == -10)
-                    {
-                        VLC[标号].Stop();
-                        选择直播.Items.Remove(标号.ToString());
-                        RInfo[标号].Ty = false;
-                        更新直播窗体(标号, 最近一个操作的房间号);
-                        // RInfo[标号].Ty = false;
-                        return;
-                    }
+            //        if (VLC[标号].获取播放状态() == -10)
+            //        {
+            //            VLC[标号].Stop();
+            //            选择直播.Items.Remove(标号.ToString());
+            //            RInfo[标号].Ty = false;
+            //            更新直播窗体(标号, 最近一个操作的房间号);
+            //            // RInfo[标号].Ty = false;
+            //            return;
+            //        }
 
-                }
-                else if (!F1.Visible && F1.Name != "0")
-                {
-                    VLC[标号].Stop();
-                    选择直播.Items.Remove(标号.ToString());
-                    RInfo[标号].Ty = false;
-                    return;
-                }
+            //    }
+            //    else if (!F1.Visible && F1.Name != "0")
+            //    {
+            //        VLC[标号].Stop();
+            //        选择直播.Items.Remove(标号.ToString());
+            //        RInfo[标号].Ty = false;
+            //        return;
+            //    }
 
-                Thread.Sleep(5);
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    RInfo[标号].Ty = false;
-                    VLC[标号].Stop();
-                    选择直播.Items.Remove(标号.ToString());
-                }
-                catch (Exception)
-                {
-                }
-                return;
-            }
+            //    Thread.Sleep(5);
+            //}
+            //catch (Exception)
+            //{
+            //    try
+            //    {
+            //        RInfo[标号].Ty = false;
+            //        VLC[标号].Stop();
+            //        选择直播.Items.Remove(标号.ToString());
+            //    }
+            //    catch (Exception)
+            //    {
+            //    }
+            //    return;
+            //}
 
         }
 
-        private void A_Activated1(object sender, EventArgs e)
+        private void A_Activated(object sender, EventArgs e)
         {
             Form A = sender as Form;
             当前选择的直播流 = int.Parse(A.Name);
@@ -281,67 +289,67 @@ namespace DD监控室
 
 
 
-        //object sender, EventArgs e
-        private EventHandler A_ResizeEndAA(Form F1)
-        {
-            Thread T1 = new Thread(new ThreadStart(delegate
-              {
-                  int 标号 = int.Parse(F1.Name);
-                  while (true)
-                  {
-                      try
-                      {
-                          if (F1.Visible && F1.Name != "0")
-                          {
+        ////object sender, EventArgs e
+        //private EventHandler A_ResizeEndAA(Form F1)
+        //{
+        //    Thread T1 = new Thread(new ThreadStart(delegate
+        //      {
+        //          int 标号 = int.Parse(F1.Name);
+        //          while (true)
+        //          {
+        //              try
+        //              {
+        //                  if (F1.Visible && F1.Name != "0")
+        //                  {
 
-                              if (F1.Size != FSize[int.Parse(F1.Name)])
-                              {
+        //                      if (F1.Size != FSize[int.Parse(F1.Name)])
+        //                      {
 
-                                  当前选择的直播流 = 标号;
-                                  更新控件大小();
-                                  FSize[int.Parse(F1.Name)] = F1.Size;
-                              }
+        //                          当前选择的直播流 = 标号;
+        //                          更新控件大小();
+        //                          FSize[int.Parse(F1.Name)] = F1.Size;
+        //                      }
 
-                              if (VLC[标号].获取播放状态() == -10)
-                              {
-                                  VLC[标号].Stop();
-                                  选择直播.Items.Remove(标号.ToString());
-                                  RInfo[标号].Ty = false;
-                                  更新直播窗体(标号, 最近一个操作的房间号);
-                                  // RInfo[标号].Ty = false;
-                                  return;
-                              }
+        //                      if (VLC[标号].获取播放状态() == -10)
+        //                      {
+        //                          VLC[标号].Stop();
+        //                          选择直播.Items.Remove(标号.ToString());
+        //                          RInfo[标号].Ty = false;
+        //                          更新直播窗体(标号, 最近一个操作的房间号);
+        //                          // RInfo[标号].Ty = false;
+        //                          return;
+        //                      }
 
-                          }
-                          else if (!F1.Visible && F1.Name != "0")
-                          {
-                              VLC[标号].Stop();
-                              选择直播.Items.Remove(标号.ToString());
-                              RInfo[标号].Ty = false;
-                              return;
-                          }
+        //                  }
+        //                  else if (!F1.Visible && F1.Name != "0")
+        //                  {
+        //                      VLC[标号].Stop();
+        //                      选择直播.Items.Remove(标号.ToString());
+        //                      RInfo[标号].Ty = false;
+        //                      return;
+        //                  }
 
-                          Thread.Sleep(5);
-                      }
-                      catch (Exception)
-                      {
-                          try
-                          {
-                              RInfo[标号].Ty = false;
-                              VLC[标号].Stop();
-                              选择直播.Items.Remove(标号.ToString());
-                          }
-                          catch (Exception)
-                          {
-                          }
-                          return;
-                      }
-                  }
-              }));
-            T1.IsBackground = true;
-            T1.Start();
-            return null;
-        }
+        //                  Thread.Sleep(5);
+        //              }
+        //              catch (Exception)
+        //              {
+        //                  try
+        //                  {
+        //                      RInfo[标号].Ty = false;
+        //                      VLC[标号].Stop();
+        //                      选择直播.Items.Remove(标号.ToString());
+        //                  }
+        //                  catch (Exception)
+        //                  {
+        //                  }
+        //                  return;
+        //              }
+        //          }
+        //      }));
+        //    T1.IsBackground = true;
+        //    T1.Start();
+        //    return null;
+        //}
 
         private void button2_Click(object sender, EventArgs e)
         {
