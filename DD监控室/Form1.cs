@@ -383,14 +383,22 @@ namespace DD监控室
         {
             if(!string.IsNullOrEmpty(RoomNametext.Text))
             {
-                Roomlist.Add(new RoomCadr() { Name = RoomNametext.Text, RoomNumber = biliRoomId.Text,Ty=false });
+                if(!string.IsNullOrEmpty(biliRoomId.Text))
+                {
+                    Roomlist.Add(new RoomCadr() { Name = RoomNametext.Text, RoomNumber = biliRoomId.Text, Ty = false });
+                    更新房间列表();
+                    储存房间信息到硬盘();
+                }
+                else
+                {
+                    MessageBox.Show("请输入房间号");
+                }
             }
             else
             {
                 MessageBox.Show("请输入房间名/备注");
             }
-            更新房间列表();
-            储存房间信息到硬盘();
+            
         }
         private void 更新房间列表()
         {
