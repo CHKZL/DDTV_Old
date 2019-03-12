@@ -1,5 +1,6 @@
 # DDTV
 DD导播中心
+![DD导播中心](https://github.com/CHKZL/DDTV/blob/master/src/DDTV.png)
 
 ## 为何要写这个东西
 ~~当然是为了方便的爱着大家啊(震声！~~  
