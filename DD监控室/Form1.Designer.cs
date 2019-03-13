@@ -34,6 +34,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.T1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.修改分辨率 = new System.Windows.Forms.Button();
+            this.窗口高 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.窗口宽 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.流 = new System.Windows.Forms.ComboBox();
             this.button8 = new System.Windows.Forms.Button();
@@ -53,13 +60,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.skinEngine1 = new Sunisoft.IrisSkin.SkinEngine();
             this.DDTV = new System.Windows.Forms.NotifyIcon(this.components);
-            this.label6 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.窗口宽 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.窗口高 = new System.Windows.Forms.TextBox();
-            this.修改分辨率 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -121,6 +121,75 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "控制";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Enabled = false;
+            this.label8.Font = new System.Drawing.Font("宋体", 9F);
+            this.label8.Location = new System.Drawing.Point(434, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 12);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "by：某米";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.修改分辨率);
+            this.groupBox2.Controls.Add(this.窗口高);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.窗口宽);
+            this.groupBox2.Location = new System.Drawing.Point(10, 94);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(201, 42);
+            this.groupBox2.TabIndex = 22;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = " 统一修改窗口大小";
+            // 
+            // 修改分辨率
+            // 
+            this.修改分辨率.Location = new System.Drawing.Point(132, 14);
+            this.修改分辨率.Name = "修改分辨率";
+            this.修改分辨率.Size = new System.Drawing.Size(56, 23);
+            this.修改分辨率.TabIndex = 23;
+            this.修改分辨率.Text = "修改";
+            this.修改分辨率.UseVisualStyleBackColor = true;
+            this.修改分辨率.Click += new System.EventHandler(this.修改分辨率_Click);
+            // 
+            // 窗口高
+            // 
+            this.窗口高.Location = new System.Drawing.Point(72, 15);
+            this.窗口高.Name = "窗口高";
+            this.窗口高.Size = new System.Drawing.Size(45, 21);
+            this.窗口高.TabIndex = 24;
+            this.窗口高.Text = "440";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(58, 18);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(11, 12);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "X";
+            // 
+            // 窗口宽
+            // 
+            this.窗口宽.Location = new System.Drawing.Point(9, 15);
+            this.窗口宽.Name = "窗口宽";
+            this.窗口宽.Size = new System.Drawing.Size(45, 21);
+            this.窗口宽.TabIndex = 23;
+            this.窗口宽.Text = "720";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Enabled = false;
+            this.label6.Location = new System.Drawing.Point(-2, 242);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(221, 12);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "在每个窗口的标题滚动鼠标也能修改音量";
             // 
             // label5
             // 
@@ -301,77 +370,7 @@
             // 
             this.DDTV.Icon = ((System.Drawing.Icon)(resources.GetObject("DDTV.Icon")));
             this.DDTV.Text = "DDTV";
-            this.DDTV.Visible = true;
             this.DDTV.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Enabled = false;
-            this.label6.Location = new System.Drawing.Point(-2, 242);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(221, 12);
-            this.label6.TabIndex = 21;
-            this.label6.Text = "在每个窗口的标题滚动鼠标也能修改音量";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.修改分辨率);
-            this.groupBox2.Controls.Add(this.窗口高);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.窗口宽);
-            this.groupBox2.Location = new System.Drawing.Point(10, 94);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(201, 42);
-            this.groupBox2.TabIndex = 22;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = " 统一修改窗口大小";
-            // 
-            // 窗口宽
-            // 
-            this.窗口宽.Location = new System.Drawing.Point(9, 15);
-            this.窗口宽.Name = "窗口宽";
-            this.窗口宽.Size = new System.Drawing.Size(45, 21);
-            this.窗口宽.TabIndex = 23;
-            this.窗口宽.Text = "720";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(58, 18);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(11, 12);
-            this.label7.TabIndex = 23;
-            this.label7.Text = "X";
-            // 
-            // 窗口高
-            // 
-            this.窗口高.Location = new System.Drawing.Point(72, 15);
-            this.窗口高.Name = "窗口高";
-            this.窗口高.Size = new System.Drawing.Size(45, 21);
-            this.窗口高.TabIndex = 24;
-            this.窗口高.Text = "440";
-            // 
-            // 修改分辨率
-            // 
-            this.修改分辨率.Location = new System.Drawing.Point(132, 14);
-            this.修改分辨率.Name = "修改分辨率";
-            this.修改分辨率.Size = new System.Drawing.Size(56, 23);
-            this.修改分辨率.TabIndex = 23;
-            this.修改分辨率.Text = "修改";
-            this.修改分辨率.UseVisualStyleBackColor = true;
-            this.修改分辨率.Click += new System.EventHandler(this.修改分辨率_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Enabled = false;
-            this.label8.Font = new System.Drawing.Font("宋体", 9F);
-            this.label8.Location = new System.Drawing.Point(434, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 12);
-            this.label8.TabIndex = 23;
-            this.label8.Text = "by：某米";
             // 
             // Form1
             // 
@@ -390,6 +389,7 @@
             this.Name = "Form1";
             this.Text = "DD导播中心(多路直播监控)";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox1.ResumeLayout(false);

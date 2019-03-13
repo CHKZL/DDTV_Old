@@ -71,7 +71,7 @@ namespace DD监控室
                     {
                         //MMPU.储存文件("./config.ini",ver);
                        // ver = MMPU.读取文件("./config.ini");
-                        string 服务器版本 = MMPU.get返回网页内容("https://github.com/CHKZL/DDTV/raw/master/src/Ver.ini");
+                        string 服务器版本 = MMPU.get返回网页内容("https://github.com/CHKZL/DDTV/raw/master/src/Ver.ini").Trim();
                         if (ver != 服务器版本)
                         {
                             DialogResult dr = MessageBox.Show("====有新版本可以更新====\n\n最新版本:" + 服务器版本 + "\n本地版本:" + ver + "\n\n点击确定转到本项目github页面下载", "有新版本", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -85,7 +85,7 @@ namespace DD监控室
                 catch (Exception)
                 {
                 }
-            }));
+             }));
             T1.IsBackground = true;
             T1.Start();
         }
@@ -166,9 +166,13 @@ namespace DD监控室
         private void trackBar1_Scroll_1(object sender, EventArgs e)
         {
             VLC[当前选择的直播流].SetVolume(trackBar1.Value);
+            修改标题音量显示(当前选择的直播流, trackBar1.Value);
             // Console.WriteLine(trackBar1.Value);
         }
-
+        public void 修改标题音量显示(int 标号,int 音量)
+        {
+            FM[标号].Text = "DDTV-" + RInfo[标号].Name + "  音量:" + 音量 + "%" + " 正在直播:" + RInfo[标号].Text;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             更新流到选择的窗口();
@@ -240,7 +244,8 @@ namespace DD监控室
 
                 Form A = new Form();
                 A.Size = 播放窗体默认大小;
-                A.Text = "DDTV-" + (当前选择的直播流).ToString() + " 当前直播的节目是：" + 标题;
+                
+                //A.Text = "DDTV-" + (当前选择的直播流).ToString() + " 当前直播的节目是：" + 标题;
                 A.Icon = new Icon("./DDTV.ico");
                 A.Show();
                 A.Name = (当前选择的直播流).ToString();
@@ -251,7 +256,7 @@ namespace DD监控室
                 A.MouseWheel += A_MouseWheel; ;
 
                 FM.Add(A);
-
+                
                 FSize.Add(播放窗体默认大小);
 
                 PictureBox p = new PictureBox();//实例化一个照片框
@@ -263,6 +268,8 @@ namespace DD监控室
 
                 VLCPlayer vlcPlayer = new VLCPlayer();
                 VLC.Add(vlcPlayer);
+
+               
             }
         }
         /// <summary>
@@ -305,6 +312,7 @@ namespace DD监控室
             }
             VLC[当前选择的直播流].SetVolume(当前音量);
             trackBar1.Value = 当前音量;
+            修改标题音量显示(当前选择的直播流, 当前音量);
         }
         /// <summary>
         /// 动态窗口移动事件
@@ -432,8 +440,9 @@ namespace DD监控室
             新建一个直播监听(视频标题);
             当前选择的直播流 = int.Parse(选择直播.Text);
             VLC[当前选择的直播流].Play(steamdata, PBOX[当前选择的直播流].Handle);//播放 参数1rtsp地址，参数2 窗体句柄  
-            RInfo.Add(new RoomInfo { Name = 视频标题, RoomNumber = roomId, steam = steamdata, Ty = true });
-            if(VLC[当前选择的直播流].获取播放状态()==-10)
+            RInfo.Add(new RoomInfo { Name =当前选择的直播流.ToString(), RoomNumber = roomId, steam = steamdata, Ty = true ,Text = 视频标题 });
+            修改标题音量显示(当前选择的直播流, trackBar1.Value);
+            if (VLC[当前选择的直播流].获取播放状态()==-10)
             {
                 更新直播窗体(当前选择的直播流,roomId);
             }
@@ -623,7 +632,11 @@ namespace DD监控室
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            Visible = true;
 
+            WindowState = FormWindowState.Normal;
+
+            DDTV.Visible = false;
         }
 
         /// <summary>
@@ -675,6 +688,15 @@ namespace DD监控室
                 return;
             }
            
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+                DDTV.Visible = true;
+            }
         }
     }
 }

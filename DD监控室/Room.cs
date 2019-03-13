@@ -23,6 +23,7 @@ namespace DD监控室
         {
             public string Name { get; set; }
             public string RoomNumber { get; set; }
+            public string Text { get; set; }
             public string steam { get; set; }
             public bool Ty { get; set; }
         }
