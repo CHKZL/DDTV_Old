@@ -34,7 +34,7 @@ namespace DD监控室
         public bool startType = true;//首次启动判断
         public Size playWindowDefaultSize = new Size(720,440);//播放窗口的默认大小
         public int indexRoom = 0;//选中的直播
-        public string ver = "1.0.1.2";
+        public string ver = "1.0.1.3";
         public Point WindowTopLeft = new Point(3, 3);
 
 
@@ -543,7 +543,7 @@ namespace DD监控室
                             string 标题 = getUriSteam.GetUrlTitle(Roomlist[i].RoomNumber);
                             if (!startType)
                             {
-                                DDTV.ShowBalloonTip(5000, Roomlist[i].Name + " 开始直播了", 标题, ToolTipIcon.Info);
+                                BackMessage(标题, Roomlist[i].Name + " 开始直播了",5000);
                             }
                             Roomlist[i].Ty = !Roomlist[i].Ty;
                         }
@@ -712,6 +712,15 @@ namespace DD监控室
             {
             }
         }
-
+        /// <summary>
+        /// 后台系统提示气泡
+        /// </summary>
+        /// <param name="标题"></param>
+        /// <param name="Text"></param>
+        /// <param name="time"></param>
+        private void BackMessage(string 标题,string Text,int time)
+        {
+            DDTV.ShowBalloonTip(time, Text, 标题, ToolTipIcon.Info);
+        }
     }
 }

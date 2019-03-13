@@ -383,6 +383,7 @@
             // 
             this.DDTV.Icon = ((System.Drawing.Icon)(resources.GetObject("DDTV.Icon")));
             this.DDTV.Text = "DDTV";
+            this.DDTV.Visible = true;
             this.DDTV.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // Form1
