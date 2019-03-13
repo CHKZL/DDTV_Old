@@ -9,7 +9,7 @@ DD导播中心
 估摸着可以给DD国添砖加瓦，就想了一下需求，DUANG~就变出来了。
 
 ## 写给不会使用gayhub的：怎么下载
-[点这里下载](https://github.com/CHKZL/DDTV/releases/download/1.0.1.1/DDTV_Ver1.0.1.1.rar)
+[点这里下载](https://github.com/CHKZL/DDTV/releases)
 
 
 ## 关于监控列表
