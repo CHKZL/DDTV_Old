@@ -29,40 +29,35 @@ namespace DD监控室
         }
 
 
-        public int 当前选择的直播流 = 0;
-        public int 直播流的数量 = 0;
-        public bool 初次启动判断 = true;
-        public Size 播放窗体默认大小 = new Size(720,440);
-        public int 选中的房间目录 = 0;
+        public int CurrentlyStream = 0;//当前选择的直播流标示
+        public int streamNumber = 0;//直播流的数量标示
+        public bool startType = true;//首次启动判断
+        public Size playWindowDefaultSize = new Size(720,440);//播放窗口的默认大小
+        public int indexRoom = 0;//选中的直播
         public string ver = "1.0.1.1";
-
-        public Point 界面左上角坐标 = new Point(3, 3);
-
-
-        List<VLCPlayer> VLC = new List<VLCPlayer>();
-        List<PictureBox> PBOX = new List<PictureBox>();
-        List<Form> FM = new List<Form>();
-        List<Size> FSize = new List<Size>();
-        RoomBox RB = new RoomBox();
-        List<RoomCadr> Roomlist = new List<RoomCadr>();
-        List<RoomInfo> RInfo = new List<RoomInfo>();
+        public Point WindowTopLeft = new Point(3, 3);
 
 
-        public string 最近一个操作的房间号 = "";
+        List<VLCPlayer> VLC = new List<VLCPlayer>();//动态VLC播放器对象List
+        List<PictureBox> PBOX = new List<PictureBox>();//动态pictureBox对象List
+        List<Form> FM = new List<Form>();//动态Form对象List
+        List<Size> FSize = new List<Size>();//Form窗体大小List
+        //RoomBox RB = new RoomBox();//房间信息
+        List<RoomCadr> Roomlist = new List<RoomCadr>();//房间信息1List
+        List<RoomInfo> RInfo = new List<RoomInfo>();//房间信息2List
 
-       
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            检查新版本();
-            彩蛋();
-            读取房间配置信息并加载到内存();
-            定时刷新房间状态();
-            初始VLC();
-            直播流的数量++;
+            CheckVersion();
+            egg();
+            InitializeRoomList();
+            TimelyRefreshingRoomStatus();
+            initializationVLC();
+            streamNumber++;
         }
 
-        private void 检查新版本()
+        private void CheckVersion()
         {
             Thread T1 = new Thread(new ThreadStart(delegate {
                 try
@@ -71,10 +66,10 @@ namespace DD监控室
                     {
                         //MMPU.储存文件("./config.ini",ver);
                        // ver = MMPU.读取文件("./config.ini");
-                        string 服务器版本 = MMPU.get返回网页内容("https://github.com/CHKZL/DDTV/raw/master/src/Ver.ini").Trim();
-                        if (ver != 服务器版本)
+                        string ServerVersion = MMPU.get返回网页内容("https://github.com/CHKZL/DDTV/raw/master/src/Ver.ini").Trim();
+                        if (ver != ServerVersion)
                         {
-                            DialogResult dr = MessageBox.Show("====有新版本可以更新====\n\n最新版本:" + 服务器版本 + "\n本地版本:" + ver + "\n\n点击确定转到本项目github页面下载", "有新版本", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            DialogResult dr = MessageBox.Show("====有新版本可以更新====\n\n最新版本:" + ServerVersion + "\n本地版本:" + ver + "\n\n点击确定转到本项目github页面下载", "有新版本", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                             if (dr == DialogResult.OK)
                             {
                                 System.Diagnostics.Process.Start("https://github.com/CHKZL/DDTV");
@@ -89,7 +84,7 @@ namespace DD监控室
             T1.IsBackground = true;
             T1.Start();
         }
-        private void 彩蛋()
+        private void egg()
         {
             Thread T2 = new Thread(new ThreadStart(delegate
             {
@@ -143,20 +138,7 @@ namespace DD监控室
             T2.IsBackground = true;
             T2.Start();
         }
-
-        private void 定时刷新房间状态()
-        {
-            Thread T1 = new Thread(new ThreadStart(delegate
-            {
-                while (true)
-                {
-                    Thread.Sleep(600000);
-                    更新房间列表();
-                }
-            }));
-            T1.IsBackground = true;
-            T1.Start();
-        }
+       
 
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
@@ -165,11 +147,16 @@ namespace DD监控室
 
         private void trackBar1_Scroll_1(object sender, EventArgs e)
         {
-            VLC[当前选择的直播流].SetVolume(trackBar1.Value);
-            修改标题音量显示(当前选择的直播流, trackBar1.Value);
+            VLC[CurrentlyStream].SetVolume(trackBar1.Value);
+            EditTitleVolume(CurrentlyStream, trackBar1.Value);//修改标题音量显示
             // Console.WriteLine(trackBar1.Value);
         }
-        public void 修改标题音量显示(int 标号,int 音量)
+        /// <summary>
+        /// 修改标题音量显示
+        /// </summary>
+        /// <param name="标号"></param>
+        /// <param name="音量"></param>
+        public void EditTitleVolume(int 标号,int 音量)
         {
             FM[标号].Text = "DDTV-" + RInfo[标号].Name + "  音量:" + 音量 + "%" + " 正在直播:" + RInfo[标号].Text;
         }
@@ -179,43 +166,43 @@ namespace DD监控室
         }
         private void 更新流到选择的窗口()
         {
-            当前选择的直播流 = int.Parse(选择直播.Text);
+            CurrentlyStream = int.Parse(liveIndex.Text);
             try
             {
-                VLC[当前选择的直播流].Play(T1.Text, PBOX[当前选择的直播流].Handle);//播放 参数1rtsp地址，参数2 窗体句柄  
+                VLC[CurrentlyStream].Play(T1.Text, PBOX[CurrentlyStream].Handle);//播放 参数1rtsp地址，参数2 窗体句柄  
             }
             catch (Exception)
             {
                 MessageBox.Show("该DD不存在");
-                选择直播.Text = "";
+                liveIndex.Text = "";
             }
         }
 
         private void 选择直播_SelectedIndexChanged(object sender, EventArgs e)
         {
-            当前选择的直播流 = int.Parse(选择直播.Text);
+            CurrentlyStream = int.Parse(liveIndex.Text);
             try
             {
-                trackBar1.Value = VLC[当前选择的直播流].GetVolume();
+                trackBar1.Value = VLC[CurrentlyStream].GetVolume();
             }
             catch (Exception)
             {
             }
         }
-        public void 初始VLC()
+        public void initializationVLC()
         {
             Form A = new Form();
             A.Size = new Size(720, 480);
-            A.Text = (当前选择的直播流).ToString();
-            A.Name = (当前选择的直播流).ToString();
+            A.Text = (CurrentlyStream).ToString();
+            A.Name = (CurrentlyStream).ToString();
             A.Icon = new Icon("./DDTV.ico");
             FSize.Add(new Size(720, 480));
             FM.Add(A);
             PictureBox p = new PictureBox();//实例化一个照片框
             p.BackColor = Color.Black;
             FM[0].Controls.Add(p);//添加到当前窗口集合中
-            p.Size = new Size(A.Width - 界面左上角坐标.X - 20, A.Height - 界面左上角坐标.Y - 42);
-            p.Location = 界面左上角坐标;
+            p.Size = new Size(A.Width - WindowTopLeft.X - 20, A.Height - WindowTopLeft.Y - 42);
+            p.Location = WindowTopLeft;
             PBOX.Add(p);
             RInfo.Add(new RoomInfo { Name = "初始化", RoomNumber = "-1", steam = "初始化", Ty = false });
 
@@ -228,27 +215,27 @@ namespace DD监控室
         /// 创建播放列表，新建一个播放窗口
         /// </summary>
         /// <param name="标题"></param>
-        public void 新建一个直播监听(string 标题)
+        public void NewLiveWindow(string 标题)
         {
-            直播流的数量++;
+            streamNumber++;
 
-            选择直播.Items.Remove("添加一个新监控");
-            选择直播.Items.Add((直播流的数量 - 1).ToString());
+            liveIndex.Items.Remove("添加一个新监控");
+            liveIndex.Items.Add((streamNumber - 1).ToString());
             //选择直播.Items.Add("添加一个新监控");
-            当前选择的直播流 = 直播流的数量;
-            int TS1 = 当前选择的直播流;
+            CurrentlyStream = streamNumber;
+            int TS1 = CurrentlyStream;
             int TS2 = TS1 - 1;
-            选择直播.Text = (TS2).ToString();
+            liveIndex.Text = (TS2).ToString();
 
             {
 
                 Form A = new Form();
-                A.Size = 播放窗体默认大小;
+                A.Size = playWindowDefaultSize;
                 
                 //A.Text = "DDTV-" + (当前选择的直播流).ToString() + " 当前直播的节目是：" + 标题;
                 A.Icon = new Icon("./DDTV.ico");
                 A.Show();
-                A.Name = (当前选择的直播流).ToString();
+                A.Name = (CurrentlyStream).ToString();
                 A.ResizeEnd += A_ResizeEnd;
                 A.Activated += A_Activated;
                 A.FormClosing += A_FormClosing;
@@ -257,19 +244,19 @@ namespace DD监控室
 
                 FM.Add(A);
                 
-                FSize.Add(播放窗体默认大小);
+                FSize.Add(playWindowDefaultSize);
 
                 PictureBox p = new PictureBox();//实例化一个照片框
                 p.BackColor = Color.Black;
-                FM[当前选择的直播流].Controls.Add(p);//添加到当前窗口集合中
-                p.Size = new Size(A.Width - 界面左上角坐标.X - 20, A.Height - 界面左上角坐标.Y - 42);
-                p.Location = 界面左上角坐标;
+                FM[CurrentlyStream].Controls.Add(p);//添加到当前窗口集合中
+                p.Size = new Size(A.Width - WindowTopLeft.X - 20, A.Height - WindowTopLeft.Y - 42);
+                p.Location = WindowTopLeft;
                 PBOX.Add(p);
 
                 VLCPlayer vlcPlayer = new VLCPlayer();
                 VLC.Add(vlcPlayer);
 
-               
+                TopInfo.Checked = false;
             }
         }
         /// <summary>
@@ -280,8 +267,8 @@ namespace DD监控室
         private void A_MouseWheel(object sender, MouseEventArgs e)
         {
             Form F1 = sender as Form;
-            当前选择的直播流 = int.Parse(F1.Name);
-            选择直播.Text = F1.Name;
+            CurrentlyStream = int.Parse(F1.Name);
+            liveIndex.Text = F1.Name;
             float addsd = 0.0f;
             if (e.Delta > 0)
                 addsd -= 0.1f;
@@ -292,7 +279,7 @@ namespace DD监控室
             if (addsd <= 1)
                 addsd = 1f;
 
-            int 当前音量 = VLC[当前选择的直播流].GetVolume();
+            int 当前音量 = VLC[CurrentlyStream].GetVolume();
 
             if (e.Delta > 0)//上
             {
@@ -310,9 +297,9 @@ namespace DD监控室
             {
                 当前音量 = 0;
             }
-            VLC[当前选择的直播流].SetVolume(当前音量);
+            VLC[CurrentlyStream].SetVolume(当前音量);
             trackBar1.Value = 当前音量;
-            修改标题音量显示(当前选择的直播流, 当前音量);
+            EditTitleVolume(CurrentlyStream, 当前音量);
         }
         /// <summary>
         /// 动态窗口移动事件
@@ -334,7 +321,7 @@ namespace DD监控室
             Form F1 = sender as Form;
             int 标号 = int.Parse(F1.Name);
             VLC[标号].Stop();
-            选择直播.Items.Remove(标号.ToString());
+            liveIndex.Items.Remove(标号.ToString());
             RInfo[标号].Ty = false;
         }
 
@@ -356,71 +343,29 @@ namespace DD监控室
         private void A_Activated(object sender, EventArgs e)
         {
             Form A = sender as Form;
-            当前选择的直播流 = int.Parse(A.Name);
-            选择直播.Text = (当前选择的直播流).ToString();
+            CurrentlyStream = int.Parse(A.Name);
+            liveIndex.Text = (CurrentlyStream).ToString();
+            TopInfo.Checked = RInfo[CurrentlyStream].Top;
         }
         private void 更新窗体内播放器大小(object sender)
         {
             Form F1 = sender as Form;
-            当前选择的直播流 = int.Parse(F1.Name);
-            更新控件大小();
+            CurrentlyStream = int.Parse(F1.Name);
+            PBOX[CurrentlyStream].Size = new Size(FM[CurrentlyStream].Width - WindowTopLeft.X - 20, FM[CurrentlyStream].Height - WindowTopLeft.Y - 42);
             FSize[int.Parse(F1.Name)] = F1.Size;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            VLC[当前选择的直播流].Stop();//停止播放
+            VLC[CurrentlyStream].Stop();//停止播放
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            VLC[当前选择的直播流].SnapShot("./img/");//抓图，参数1为存储路径
-        }
-        public void 更新排版()
-        {
-            switch (PBOX.Count)
-            {
-                case 1:
-                    PBOX[0].Location = 界面左上角坐标;
-                    PBOX[0].Size = new Size(this.Width - 界面左上角坐标.X - 2, this.Height - 界面左上角坐标.Y - 2);
-
-                    break;
-                case 2:
-                    PBOX[0].Location = 界面左上角坐标;
-                    PBOX[0].Size = new Size((this.Width - 界面左上角坐标.X - 2) / 2, this.Height - 界面左上角坐标.Y - 2);
-                    PBOX[1].Location = new Point(0 + ((this.Width - 界面左上角坐标.X - 2) / 2), 界面左上角坐标.Y);
-                    PBOX[1].Size = new Size((this.Width - 界面左上角坐标.X - 2) / 2, this.Height - 界面左上角坐标.Y - 2);
-                    break;
-                case 3:
-                    PBOX[0].Location = 界面左上角坐标;
-                    PBOX[0].Size = new Size((this.Width - 界面左上角坐标.X - 2) / 2, (this.Height - 界面左上角坐标.Y - 2) / 2);
-                    PBOX[1].Location = new Point(0 + ((this.Width - 界面左上角坐标.X - 2) / 2), 界面左上角坐标.Y);
-                    PBOX[1].Size = new Size((this.Width - 界面左上角坐标.X - 2) / 2, (this.Height - 界面左上角坐标.Y - 2) / 2);
-
-
-                    PBOX[2].Location = new Point(界面左上角坐标.X, (this.Height + 界面左上角坐标.Y - 2) / 2);
-                    PBOX[2].Size = new Size((this.Width - 界面左上角坐标.X - 2) / 2, (this.Height - 界面左上角坐标.Y - 2) / 2);
-
-                    break;
-                case 4:
-                    PBOX[0].Location = 界面左上角坐标;
-                    PBOX[0].Size = new Size((this.Width - 界面左上角坐标.X - 2) / 2, (this.Height - 界面左上角坐标.Y - 2) / 2);
-                    PBOX[1].Location = new Point(0 + ((this.Width - 界面左上角坐标.X - 2) / 2), 界面左上角坐标.Y);
-                    PBOX[1].Size = new Size((this.Width - 界面左上角坐标.X - 2) / 2, (this.Height - 界面左上角坐标.Y - 2) / 2);
-                    PBOX[2].Location = new Point(界面左上角坐标.X, (this.Height + 界面左上角坐标.Y - 2) / 2);
-                    PBOX[2].Size = new Size((this.Width - 界面左上角坐标.X - 2) / 2, (this.Height - 界面左上角坐标.Y - 2) / 2);
-                    PBOX[3].Location = new Point((this.Width + 界面左上角坐标.X - 2) / 2, (this.Height + 界面左上角坐标.Y - 2) / 2);
-                    PBOX[3].Size = new Size((this.Width - 界面左上角坐标.X - 2) / 2, (this.Height - 界面左上角坐标.Y - 2) / 2);
-                    break;
-            }
-        }
-        public void 更新控件大小()
-        {
-            PBOX[当前选择的直播流].Size = new Size(FM[当前选择的直播流].Width - 界面左上角坐标.X - 20, FM[当前选择的直播流].Height - 界面左上角坐标.Y - 42);
+            VLC[CurrentlyStream].SnapShot("./img/");//抓图，参数1为存储路径
         }
 
         private void Form1_Resize(object sender, EventArgs e)
         {
-            更新排版();
         }
         /// <summary>
         /// 获取B站直播流并开始监听
@@ -429,29 +374,27 @@ namespace DD监控室
         /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
-            打开新的直播窗体(biliRoomId.Text);
+            NewLive(biliRoomId.Text);
         }
-        private void 打开新的直播窗体(string roomId)
+        private void NewLive(string roomId)
         {
-            最近一个操作的房间号 = roomId;
-            string 视频标题 = getUriSteam.获取网页标题(roomId);
-            string steamdata = getUriSteam.getBiliRoomId(roomId);
-            T1.Text = steamdata;
-            新建一个直播监听(视频标题);
-            当前选择的直播流 = int.Parse(选择直播.Text);
-            VLC[当前选择的直播流].Play(steamdata, PBOX[当前选择的直播流].Handle);//播放 参数1rtsp地址，参数2 窗体句柄  
-            RInfo.Add(new RoomInfo { Name =当前选择的直播流.ToString(), RoomNumber = roomId, steam = steamdata, Ty = true ,Text = 视频标题 });
-            修改标题音量显示(当前选择的直播流, trackBar1.Value);
-            if (VLC[当前选择的直播流].获取播放状态()==-10)
+            string VideoTitle = getUriSteam.GetUrlTitle(roomId);
+            string steamData = getUriSteam.getBiliRoomId(roomId);
+            T1.Text = steamData;
+            NewLiveWindow(VideoTitle);
+            CurrentlyStream = int.Parse(liveIndex.Text);
+            VLC[CurrentlyStream].Play(steamData, PBOX[CurrentlyStream].Handle);
+            RInfo.Add(new RoomInfo { Name = CurrentlyStream.ToString(), RoomNumber = roomId, steam = steamData, Ty = true ,Text = VideoTitle });
+            EditTitleVolume(CurrentlyStream, trackBar1.Value);
+            if (VLC[CurrentlyStream].getPlayerState()==-10)
             {
-                更新直播窗体(当前选择的直播流,roomId);
+                UpdateLiveForm(CurrentlyStream, roomId);
             }
         }
-        public void 更新直播窗体(int 窗口编号, string RoomId)
+        public void UpdateLiveForm(int 窗口编号, string RoomId)
         {
             FM[窗口编号].Close();
-            打开新的直播窗体(RoomId);
-            //DialogResult result = MessageBox.Show("为房间" + RoomId + "创建多媒体窗口时解码器返回错误，这个问题是由解码器产生的\n\n窗口创建需要用户手动操作，再次开始监听房间", "解码器内部错误", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            NewLive(RoomId);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -478,7 +421,7 @@ namespace DD监控室
             int index = listBox.IndexFromPoint(e.Location);
             if (index != ListBox.NoMatches)
             {
-                打开新的直播窗体(Roomlist[index].RoomNumber);
+                NewLive(Roomlist[index].RoomNumber);
             }
         }
         
@@ -509,8 +452,8 @@ namespace DD监控室
                 if (!string.IsNullOrEmpty(biliRoomId.Text))
                 {
                     Roomlist.Add(new RoomCadr() { Name = RoomNametext.Text, RoomNumber = biliRoomId.Text, Ty = false });
-                    更新房间列表();
-                    储存房间信息到硬盘();
+                    UpdateRoomList();
+                    SaveRoomInfo();
                 }
                 else
                 {
@@ -522,7 +465,26 @@ namespace DD监控室
                 MessageBox.Show("请输入房间名/备注");
             }
         }
-        private void 更新房间列表()
+        /// <summary>
+        /// 定时刷新房间
+        /// </summary>
+        public void TimelyRefreshingRoomStatus()
+        {
+            Thread T1 = new Thread(new ThreadStart(delegate
+            {
+                while (true)
+                {
+                    Thread.Sleep(600000);
+                    UpdateRoomList();
+                }
+            }));
+            T1.IsBackground = true;
+            T1.Start();
+        }
+        /// <summary>
+        /// 更新房间列表
+        /// </summary>
+        public void UpdateRoomList()
         {
             Thread T1 = new Thread(new ThreadStart(delegate
             {
@@ -541,8 +503,8 @@ namespace DD监控室
                         if (!Roomlist[i].Ty)
                         {
                             //设置后台气泡提示
-                            string 标题 = getUriSteam.获取网页标题(Roomlist[i].RoomNumber);
-                            if (!初次启动判断)
+                            string 标题 = getUriSteam.GetUrlTitle(Roomlist[i].RoomNumber);
+                            if (!startType)
                             {
                                 DDTV.ShowBalloonTip(3000, Roomlist[i].Name + " 开始直播了", 标题, ToolTipIcon.Info);
                             }
@@ -551,21 +513,23 @@ namespace DD监控室
                         listBox.Items.Add("[直播中]● " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
                     }
                 }
-                初次启动判断 = false;
+                startType = false;
             }));
             T1.IsBackground = true;
             T1.Start();
         }
 
-        public void 储存房间信息到硬盘()
+        public void SaveRoomInfo()
         {
-            RB.data = Roomlist;
-            MMPU.储存文件("./RoomListConfig.ini", JsonConvert.SerializeObject(RB));
+            RoomBox RB = new RoomBox() { data=Roomlist};//房间信息
+            MMPU.SaveFile("./RoomListConfig.ini", JsonConvert.SerializeObject(RB));
         }
-
-        private void 读取房间配置信息并加载到内存()
+        /// <summary>
+        /// 初始化房间列表
+        /// </summary>
+        private void InitializeRoomList()
         {       
-            JObject jo = (JObject)JsonConvert.DeserializeObject(MMPU.读取文件("./RoomListConfig.ini"));
+            JObject jo = (JObject)JsonConvert.DeserializeObject(MMPU.ReadFile("./RoomListConfig.ini"));
             try
             {
                 while (true)
@@ -579,7 +543,7 @@ namespace DD监控室
             catch (Exception)
             {
             }
-            更新房间列表();
+            UpdateRoomList();
         }
        
         /// <summary>
@@ -592,7 +556,7 @@ namespace DD监控室
             int index = this.listBox.IndexFromPoint(e.Location);
             if (index != System.Windows.Forms.ListBox.NoMatches)
             {
-                选中的房间目录 = index;
+                indexRoom = index;
             }
         }
 
@@ -603,10 +567,10 @@ namespace DD监控室
         /// <param name="e"></param>
         private void button7_Click_1(object sender, EventArgs e)
         {
-            listBox.Items.Remove(listBox.Items[选中的房间目录]);
-            Roomlist.RemoveAt(选中的房间目录);
-            更新房间列表();
-            储存房间信息到硬盘();
+            listBox.Items.Remove(listBox.Items[indexRoom]);
+            Roomlist.RemoveAt(indexRoom);
+            UpdateRoomList();
+            SaveRoomInfo();
         }
 
         /// <summary>
@@ -616,7 +580,7 @@ namespace DD监控室
         /// <param name="e"></param>
         private void button8_Click(object sender, EventArgs e)
         {
-            更新房间列表();
+            UpdateRoomList();
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -626,7 +590,7 @@ namespace DD监控室
         private string 更新并获取直播流(string RID)
         {
             string steam = getUriSteam.getBiliRoomId(RID);
-            RInfo[当前选择的直播流].steam = steam;
+            RInfo[CurrentlyStream].steam = steam;
             return steam;
         }
 
@@ -679,7 +643,7 @@ namespace DD监控室
                     Size C = new Size(X, Y);
                     FM[i].Size = C;
                     FSize[i] = C;
-                    PBOX[i].Size = new Size(C.Width - 界面左上角坐标.X - 20, C.Height - 界面左上角坐标.Y - 42);
+                    PBOX[i].Size = new Size(C.Width - WindowTopLeft.X - 20, C.Height - WindowTopLeft.Y - 42);
                 }
             }
             catch (Exception)
@@ -696,6 +660,18 @@ namespace DD监控室
             {
                 Hide();
                 DDTV.Visible = true;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                RInfo[CurrentlyStream].Top = TopInfo.Checked;
+                FM[CurrentlyStream].TopMost = TopInfo.Checked;
+            }
+            catch (Exception)
+            {
             }
         }
     }

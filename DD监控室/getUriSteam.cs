@@ -34,7 +34,12 @@ namespace DD监控室
             }
             return _flvUrl;
         }
-        public static string 获取网页标题(string ID)
+        /// <summary>
+        /// 获取网页标题
+        /// </summary>
+        /// <param name="ID">房间号</param>
+        /// <returns></returns>
+        public static string GetUrlTitle(string ID)
         {
             var roomWebPageUrl = "https://live.bilibili.com/" + ID;
             var wc = new WebClient();

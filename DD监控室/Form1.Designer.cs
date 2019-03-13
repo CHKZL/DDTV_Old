@@ -34,6 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.T1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TopInfo = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.修改分辨率 = new System.Windows.Forms.Button();
@@ -54,7 +55,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.选择直播 = new System.Windows.Forms.ComboBox();
+            this.liveIndex = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -97,6 +98,7 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox1.Controls.Add(this.TopInfo);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label6);
@@ -113,7 +115,7 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.button3);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.选择直播);
+            this.groupBox1.Controls.Add(this.liveIndex);
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Location = new System.Drawing.Point(12, 70);
             this.groupBox1.Name = "groupBox1";
@@ -121,6 +123,17 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "控制";
+            // 
+            // TopInfo
+            // 
+            this.TopInfo.AutoSize = true;
+            this.TopInfo.Location = new System.Drawing.Point(127, 179);
+            this.TopInfo.Name = "TopInfo";
+            this.TopInfo.Size = new System.Drawing.Size(84, 16);
+            this.TopInfo.TabIndex = 25;
+            this.TopInfo.Text = "锁定在最前";
+            this.TopInfo.UseVisualStyleBackColor = true;
+            this.TopInfo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // label8
             // 
@@ -311,20 +324,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 182);
+            this.label1.Location = new System.Drawing.Point(10, 182);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 5;
             this.label1.Text = "选择直播";
             // 
-            // 选择直播
+            // liveIndex
             // 
-            this.选择直播.FormattingEnabled = true;
-            this.选择直播.Location = new System.Drawing.Point(70, 177);
-            this.选择直播.Name = "选择直播";
-            this.选择直播.Size = new System.Drawing.Size(115, 20);
-            this.选择直播.TabIndex = 4;
-            this.选择直播.SelectedIndexChanged += new System.EventHandler(this.选择直播_SelectedIndexChanged);
+            this.liveIndex.FormattingEnabled = true;
+            this.liveIndex.Location = new System.Drawing.Point(66, 177);
+            this.liveIndex.Name = "liveIndex";
+            this.liveIndex.Size = new System.Drawing.Size(46, 20);
+            this.liveIndex.TabIndex = 4;
+            this.liveIndex.SelectedIndexChanged += new System.EventHandler(this.选择直播_SelectedIndexChanged);
             // 
             // button5
             // 
@@ -408,7 +421,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox 选择直播;
+        private System.Windows.Forms.ComboBox liveIndex;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private Sunisoft.IrisSkin.SkinEngine skinEngine1;
@@ -432,6 +445,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox 窗口宽;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox TopInfo;
     }
 }
 

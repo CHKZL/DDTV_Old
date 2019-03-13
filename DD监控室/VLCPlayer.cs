@@ -161,8 +161,12 @@ namespace DD监控室
             return VLCAPI.libvlc_get_version();
 
         }
+        /// <summary>
+        /// 获取播放状态
+        /// </summary>
+        /// <returns></returns>
         [HandleProcessCorruptedStateExceptions]
-        public int 获取播放状态()
+        public int getPlayerState()
         {
             try
             {

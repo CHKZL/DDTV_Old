@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DD监控室
@@ -72,7 +73,12 @@ namespace DD监控室
                 return false;
             }
         }
-        public static void 储存文件(string file, string str)
+        /// <summary>
+        /// 储存文件
+        /// </summary>
+        /// <param name="file">文件完整路径</param>
+        /// <param name="str">储存的文本内容</param>
+        public static void SaveFile(string file, string str)
         {
             FileStream fs = new FileStream(file, FileMode.Create);
             byte[] data = Encoding.UTF8.GetBytes(str);
@@ -80,7 +86,12 @@ namespace DD监控室
             fs.Flush();
             fs.Close();
         }
-        public static string 读取文件(string file)
+        /// <summary>
+        /// 读取文件
+        /// </summary>
+        /// <param name="file">文件完整路径</param>
+        /// <returns></returns>
+        public static string ReadFile(string file)
         {
             string str;
             StreamReader sr = new StreamReader(file, true);
@@ -109,5 +120,6 @@ namespace DD监控室
             }
             return result;
         }
+       
     }
 }
