@@ -234,7 +234,7 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(121, 23);
             this.button8.TabIndex = 18;
-            this.button8.Text = "刷新房间状态";
+            this.button8.Text = "刷新房间列表";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
@@ -276,11 +276,11 @@
             // 
             // listBox
             // 
+            this.listBox.Font = new System.Drawing.Font("宋体", 10F);
             this.listBox.FormattingEnabled = true;
-            this.listBox.ItemHeight = 12;
             this.listBox.Location = new System.Drawing.Point(215, 20);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(271, 196);
+            this.listBox.Size = new System.Drawing.Size(271, 186);
             this.listBox.TabIndex = 13;
             this.listBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox_MouseClick);
             this.listBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
@@ -397,6 +397,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button5);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(516, 330);
             this.MinimumSize = new System.Drawing.Size(516, 330);
             this.Name = "Form1";

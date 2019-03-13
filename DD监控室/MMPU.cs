@@ -12,6 +12,7 @@ namespace DD监控室
 {
     class MMPU
     {
+        private static string RoomConfigFile = "./RoomListConfig.ini";
         /// <summary>
         /// 获取房间的弹幕
         /// </summary>
@@ -85,6 +86,18 @@ namespace DD监控室
             fs.Write(data, 0, data.Length);
             fs.Flush();
             fs.Close();
+        }
+        public static void InitializeRoomConfigFile()
+        {
+            try
+            {
+                ReadFile(RoomConfigFile);
+            }
+            catch (Exception)
+            {
+
+                SaveFile(RoomConfigFile, "{}");
+            }
         }
         /// <summary>
         /// 读取文件

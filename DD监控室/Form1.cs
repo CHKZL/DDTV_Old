@@ -34,7 +34,7 @@ namespace DD监控室
         public bool startType = true;//首次启动判断
         public Size playWindowDefaultSize = new Size(720,440);//播放窗口的默认大小
         public int indexRoom = 0;//选中的直播
-        public string ver = "1.0.1.1";
+        public string ver = "1.0.1.2";
         public Point WindowTopLeft = new Point(3, 3);
 
 
@@ -49,6 +49,7 @@ namespace DD监控室
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MMPU.InitializeRoomConfigFile();
             CheckVersion();
             egg();
             InitializeRoomList();
@@ -67,9 +68,10 @@ namespace DD监控室
                         //MMPU.储存文件("./config.ini",ver);
                        // ver = MMPU.读取文件("./config.ini");
                         string ServerVersion = MMPU.get返回网页内容("https://github.com/CHKZL/DDTV/raw/master/src/Ver.ini").Trim();
+                        string NewVersionText = MMPU.get返回网页内容("https://github.com/CHKZL/DDTV/raw/master/src/Ver_Text.ini").Trim();
                         if (ver != ServerVersion)
                         {
-                            DialogResult dr = MessageBox.Show("====有新版本可以更新====\n\n最新版本:" + ServerVersion + "\n本地版本:" + ver + "\n\n点击确定转到本项目github页面下载", "有新版本", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            DialogResult dr = MessageBox.Show("====有新版本可以更新====\n\n最新版本:" + ServerVersion + "\n本地版本:" + ver + "\n\n"+ NewVersionText + "\n\n点击确定转到本项目github页面下载", "有新版本", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                             if (dr == DialogResult.OK)
                             {
                                 System.Diagnostics.Process.Start("https://github.com/CHKZL/DDTV");
@@ -236,11 +238,13 @@ namespace DD监控室
                 A.Icon = new Icon("./DDTV.ico");
                 A.Show();
                 A.Name = (CurrentlyStream).ToString();
+                A.KeyPreview = true;
                 A.ResizeEnd += A_ResizeEnd;
                 A.Activated += A_Activated;
                 A.FormClosing += A_FormClosing;
                 A.Move += A_Move;
-                A.MouseWheel += A_MouseWheel; ;
+                A.MouseWheel += A_MouseWheel;
+                A.KeyDown += A_KeyDown;
 
                 FM.Add(A);
                 
@@ -259,6 +263,30 @@ namespace DD监控室
                 TopInfo.Checked = false;
             }
         }
+
+        private void A_KeyDown(object sender, KeyEventArgs e)
+        {
+            Form F1 = sender as Form;
+            if (e.KeyData == Keys.F5)  //<--注意这里的写法！
+            {
+                string roomId = RInfo[int.Parse(F1.Name)].RoomNumber;
+                string VideoTitle = getUriSteam.GetUrlTitle(roomId);
+                string steamData = getUriSteam.getBiliRoomId(roomId);
+                T1.Text = steamData;
+                CurrentlyStream = int.Parse(F1.Name);
+                VLC[CurrentlyStream].Play(steamData, PBOX[CurrentlyStream].Handle);
+                RInfo[CurrentlyStream] =(new RoomInfo { Name = CurrentlyStream.ToString(), RoomNumber = roomId, steam = steamData, Ty = true, Text = VideoTitle });
+                EditTitleVolume(CurrentlyStream, trackBar1.Value);
+                if (VLC[CurrentlyStream].getPlayerState() == -10)
+                {
+                    UpdateLiveForm(CurrentlyStream, roomId);
+                }
+
+
+                Console.WriteLine("按下了F5");
+            }
+        }
+
         /// <summary>
         /// 鼠标滚轮事件(修改音量)
         /// </summary>
@@ -421,7 +449,14 @@ namespace DD监控室
             int index = listBox.IndexFromPoint(e.Location);
             if (index != ListBox.NoMatches)
             {
-                NewLive(Roomlist[index].RoomNumber);
+                for(int i=0;i< Roomlist.Count;i++)
+                {
+                    if (listBox.Items[index].ToString().Length != listBox.Items[index].ToString().Replace(Roomlist[i].RoomNumber, "").Length)
+                    {
+                        NewLive(Roomlist[i].RoomNumber);
+                    }
+                }
+                
             }
         }
         
@@ -489,13 +524,15 @@ namespace DD监控室
             Thread T1 = new Thread(new ThreadStart(delegate
             {
                 listBox.Items.Clear();
+                List<string> MYZ = new List<string>();
+                List<string> ZZZB = new List<string>();
                 for (int i = 0; i < Roomlist.Count; i++)
                 {
                     if (getUriSteam.getBiliRoomId(Roomlist[i].RoomNumber) == "该房间未在直播")
                     {
 
                         Roomlist[i].Ty = false;
-
+                        MYZ.Add("[摸鱼中]○ " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
                         listBox.Items.Add("[摸鱼中]○ " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
                     }
                     else
@@ -506,11 +543,12 @@ namespace DD监控室
                             string 标题 = getUriSteam.GetUrlTitle(Roomlist[i].RoomNumber);
                             if (!startType)
                             {
-                                DDTV.ShowBalloonTip(3000, Roomlist[i].Name + " 开始直播了", 标题, ToolTipIcon.Info);
+                                DDTV.ShowBalloonTip(5000, Roomlist[i].Name + " 开始直播了", 标题, ToolTipIcon.Info);
                             }
                             Roomlist[i].Ty = !Roomlist[i].Ty;
                         }
-                        listBox.Items.Add("[直播中]● " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
+                        ZZZB.Add("[直播中]● " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
+                        listBox.Items.Insert(0,"[直播中]●  " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
                     }
                 }
                 startType = false;
@@ -674,5 +712,6 @@ namespace DD监控室
             {
             }
         }
+
     }
 }

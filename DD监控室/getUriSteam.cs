@@ -11,6 +11,7 @@ namespace DD监控室
     public class getUriSteam
     {
         public static int 流编号 = 0;
+        //检测是否在直播
         public static string getBiliRoomId(string ID)
         {
             //读取设置
@@ -19,7 +20,7 @@ namespace DD监控室
             //准备查找下载地址
             //查找真实房间号
             string _roomid = GetRoomid(ID);
-            if (_roomid == "该房间未在直播")
+            if (_roomid == "该房间未在直播"|| _roomid==null)
             {
                 return "该房间未在直播";
             }
