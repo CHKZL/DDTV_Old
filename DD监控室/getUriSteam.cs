@@ -101,23 +101,7 @@ namespace DD监控室
                 return null;
             }
         }
-        private static void SendStat(string roomid)
-        {
-            var api = $"https://zyzsdy.com/biliroku/stat?os={Ver.OS_VER}&id={roomid}&ver={Ver.VER}";
-
-            var wc = new WebClient();
-            wc.Headers.Add("Accept: */*");
-            wc.Headers.Add("User-Agent: " + Ver.UA);
-            wc.Headers.Add("Accept-Language: zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4");
-            try
-            {
-                wc.DownloadStringAsync(new Uri(api));
-            }
-            catch
-            {
-                //ignore
-            }
-        }
+     
         public static string GetTrueUrl(string roomid)
         {
             if (roomid == null)
@@ -126,8 +110,7 @@ namespace DD监控室
                 throw new Exception("No roomid");
             }
             var apiUrl = "https://api.live.bilibili.com/room/v1/Room/playUrl?cid=" + roomid + "&otype=json&quality=0&platform=web";
-            SendStat(roomid);
-
+          
             //访问API获取结果
             var wc = new WebClient();
             wc.Headers.Add("Accept: */*");
