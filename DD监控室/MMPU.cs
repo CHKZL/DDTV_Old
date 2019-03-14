@@ -7,6 +7,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace DD监控室
 {
@@ -133,6 +134,79 @@ namespace DD监控室
             }
             return result;
         }
-       
+        public static string HttpDownloadFile(string url, string path)
+        {
+            // 设置参数
+            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+            //发送请求并获取相应回应数据
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+            //直到request.GetResponse()程序才开始向目标网页发送Post请求
+            Stream responseStream = response.GetResponseStream();
+            //创建本地文件写入流
+            Stream stream = new FileStream(path, FileMode.Create);
+            byte[] bArr = new byte[1024];
+            int size = responseStream.Read(bArr, 0, (int)bArr.Length);
+            while (size > 0)
+            {
+                stream.Write(bArr, 0, size);
+                size = responseStream.Read(bArr, 0, (int)bArr.Length);
+            }
+            stream.Close();
+            responseStream.Close();
+            return path;
+        }
+        /// <summary>
+        /// 检测指定文件是否存在,如果存在则返回true。
+        /// </summary>
+        /// <param name="filePath">文件的绝对路径</param>        
+        public static bool IsExistFile(string filePath)
+        {
+            return File.Exists(filePath);
+        }
+        /// <summary>
+        /// 检测指定目录是否存在
+        /// </summary>
+        /// <param name="directoryPath">目录的绝对路径</param>
+        /// <returns></returns>
+        public static void IsExistDirectory(string directoryPath)
+        {
+            if (false == System.IO.Directory.Exists(directoryPath))
+            {
+                //创建pic文件夹
+                System.IO.Directory.CreateDirectory(directoryPath);
+            }
+        }
+        /// <summary>
+        /// 删除目录
+        /// </summary>
+        /// <param name="srcPath"></param>
+        public static void DelectDir(string srcPath)
+        {
+            try
+            {
+                DirectoryInfo dir = new DirectoryInfo(srcPath);
+                FileSystemInfo[] fileinfo = dir.GetFileSystemInfos();  //返回目录中所有文件和子目录
+                foreach (FileSystemInfo i in fileinfo)
+                {
+                    if (i is DirectoryInfo)            //判断是否文件夹
+                    {
+                        DirectoryInfo subdir = new DirectoryInfo(i.FullName);
+                        subdir.Delete(true);          //删除子目录和文件
+                    }
+                    else
+                    {
+                        //如果 使用了 streamreader 在删除前 必须先关闭流 ，否则无法删除 sr.close();
+                        File.Delete(i.FullName);      //删除指定文件
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        public static void DelFile(string Path)
+        {
+            File.Delete(Path);
+        }
     }
 }

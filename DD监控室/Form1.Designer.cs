@@ -34,6 +34,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.T1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Resolution = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.流 = new System.Windows.Forms.ComboBox();
             this.TopInfo = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -42,8 +48,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.窗口宽 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.流 = new System.Windows.Forms.ComboBox();
             this.button8 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.RoomNametext = new System.Windows.Forms.TextBox();
@@ -61,14 +65,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.skinEngine1 = new Sunisoft.IrisSkin.SkinEngine();
             this.DDTV = new System.Windows.Forms.NotifyIcon(this.components);
+            this.button9 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // trackBar1
             // 
-            this.trackBar1.Location = new System.Drawing.Point(6, 203);
+            this.trackBar1.Location = new System.Drawing.Point(10, 225);
             this.trackBar1.Maximum = 100;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(187, 45);
@@ -97,13 +104,15 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.TopInfo);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.流);
             this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.RoomNametext);
@@ -119,15 +128,87 @@
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Location = new System.Drawing.Point(12, 70);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(492, 254);
+            this.groupBox1.Size = new System.Drawing.Size(492, 288);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "控制";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.Resolution);
+            this.groupBox4.Location = new System.Drawing.Point(18, 375);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(201, 44);
+            this.groupBox4.TabIndex = 27;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "youtube";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(13, 17);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(41, 12);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "分辨率";
+            // 
+            // Resolution
+            // 
+            this.Resolution.FormattingEnabled = true;
+            this.Resolution.Items.AddRange(new object[] {
+            "256x144 ",
+            "426x240",
+            "640x360",
+            "854x480",
+            "1280x720",
+            "1920x1080"});
+            this.Resolution.Location = new System.Drawing.Point(67, 14);
+            this.Resolution.Name = "Resolution";
+            this.Resolution.Size = new System.Drawing.Size(121, 20);
+            this.Resolution.TabIndex = 19;
+            this.Resolution.Text = "640x360";
+            this.Resolution.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.流);
+            this.groupBox3.Location = new System.Drawing.Point(10, 74);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(201, 44);
+            this.groupBox3.TabIndex = 26;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Bilibili";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 17);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "流选择";
+            // 
+            // 流
+            // 
+            this.流.FormattingEnabled = true;
+            this.流.Items.AddRange(new object[] {
+            "主线",
+            "备线1",
+            "备线2",
+            "备线3"});
+            this.流.Location = new System.Drawing.Point(67, 14);
+            this.流.Name = "流";
+            this.流.Size = new System.Drawing.Size(121, 20);
+            this.流.TabIndex = 19;
+            this.流.Text = "主线";
+            this.流.SelectedIndexChanged += new System.EventHandler(this.流_SelectedIndexChanged);
+            // 
             // TopInfo
             // 
             this.TopInfo.AutoSize = true;
-            this.TopInfo.Location = new System.Drawing.Point(127, 179);
+            this.TopInfo.Location = new System.Drawing.Point(129, 203);
             this.TopInfo.Name = "TopInfo";
             this.TopInfo.Size = new System.Drawing.Size(84, 16);
             this.TopInfo.TabIndex = 25;
@@ -152,7 +233,7 @@
             this.groupBox2.Controls.Add(this.窗口高);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.窗口宽);
-            this.groupBox2.Location = new System.Drawing.Point(10, 94);
+            this.groupBox2.Location = new System.Drawing.Point(10, 124);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(201, 42);
             this.groupBox2.TabIndex = 22;
@@ -198,39 +279,15 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Enabled = false;
-            this.label6.Location = new System.Drawing.Point(-2, 242);
+            this.label6.Location = new System.Drawing.Point(11, 258);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(221, 12);
+            this.label6.Size = new System.Drawing.Size(185, 12);
             this.label6.TabIndex = 21;
-            this.label6.Text = "在每个窗口的标题滚动鼠标也能修改音量";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 74);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
-            this.label5.TabIndex = 20;
-            this.label5.Text = "流选择";
-            // 
-            // 流
-            // 
-            this.流.FormattingEnabled = true;
-            this.流.Items.AddRange(new object[] {
-            "主线",
-            "备线1",
-            "备线2",
-            "备线3"});
-            this.流.Location = new System.Drawing.Point(88, 71);
-            this.流.Name = "流";
-            this.流.Size = new System.Drawing.Size(121, 20);
-            this.流.TabIndex = 19;
-            this.流.Text = "主线";
-            this.流.SelectedIndexChanged += new System.EventHandler(this.流_SelectedIndexChanged);
+            this.label6.Text = "在窗口标题滚动鼠标也能修改音量";
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(88, 142);
+            this.button8.Location = new System.Drawing.Point(92, 172);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(121, 23);
             this.button8.TabIndex = 18;
@@ -241,7 +298,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(182, 227);
+            this.label4.Location = new System.Drawing.Point(215, 258);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 17;
@@ -249,14 +306,14 @@
             // 
             // RoomNametext
             // 
-            this.RoomNametext.Location = new System.Drawing.Point(229, 222);
+            this.RoomNametext.Location = new System.Drawing.Point(256, 255);
             this.RoomNametext.Name = "RoomNametext";
-            this.RoomNametext.Size = new System.Drawing.Size(163, 21);
+            this.RoomNametext.Size = new System.Drawing.Size(136, 21);
             this.RoomNametext.TabIndex = 16;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(447, 222);
+            this.button7.Location = new System.Drawing.Point(447, 253);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(39, 23);
             this.button7.TabIndex = 15;
@@ -266,7 +323,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(398, 222);
+            this.button6.Location = new System.Drawing.Point(399, 253);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(43, 23);
             this.button6.TabIndex = 14;
@@ -278,9 +335,9 @@
             // 
             this.listBox.Font = new System.Drawing.Font("宋体", 10F);
             this.listBox.FormattingEnabled = true;
-            this.listBox.Location = new System.Drawing.Point(215, 20);
+            this.listBox.Location = new System.Drawing.Point(217, 20);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(271, 186);
+            this.listBox.Size = new System.Drawing.Size(269, 225);
             this.listBox.TabIndex = 13;
             this.listBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox_MouseClick);
             this.listBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
@@ -291,29 +348,29 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(198, 23);
             this.button4.TabIndex = 11;
-            this.button4.Text = "获取B站直播流并开始监听";
+            this.button4.Text = "获取直播流并开始监听";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // biliRoomId
             // 
-            this.biliRoomId.Location = new System.Drawing.Point(100, 20);
+            this.biliRoomId.Location = new System.Drawing.Point(55, 20);
             this.biliRoomId.Name = "biliRoomId";
-            this.biliRoomId.Size = new System.Drawing.Size(111, 21);
+            this.biliRoomId.Size = new System.Drawing.Size(156, 21);
             this.biliRoomId.TabIndex = 10;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 23);
+            this.label3.Location = new System.Drawing.Point(15, 23);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 12);
+            this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 9;
-            this.label3.Text = "B站直播房间号";
+            this.label3.Text = "房间号";
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(17, 142);
+            this.button3.Location = new System.Drawing.Point(14, 172);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(65, 23);
             this.button3.TabIndex = 8;
@@ -324,7 +381,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 182);
+            this.label1.Location = new System.Drawing.Point(12, 206);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 5;
@@ -333,7 +390,7 @@
             // liveIndex
             // 
             this.liveIndex.FormattingEnabled = true;
-            this.liveIndex.Location = new System.Drawing.Point(66, 177);
+            this.liveIndex.Location = new System.Drawing.Point(68, 201);
             this.liveIndex.Name = "liveIndex";
             this.liveIndex.Size = new System.Drawing.Size(46, 20);
             this.liveIndex.TabIndex = 4;
@@ -386,11 +443,23 @@
             this.DDTV.Visible = true;
             this.DDTV.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(384, 41);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(43, 23);
+            this.button9.TabIndex = 28;
+            this.button9.Text = "添加";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click_2);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(516, 330);
+            this.ClientSize = new System.Drawing.Size(516, 370);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.button9);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.T1);
@@ -399,8 +468,8 @@
             this.Controls.Add(this.button5);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximumSize = new System.Drawing.Size(516, 330);
-            this.MinimumSize = new System.Drawing.Size(516, 330);
+            this.MaximumSize = new System.Drawing.Size(516, 370);
+            this.MinimumSize = new System.Drawing.Size(516, 370);
             this.Name = "Form1";
             this.Text = "DD导播中心(多路直播监控)";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -409,6 +478,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -448,6 +521,11 @@
         private System.Windows.Forms.TextBox 窗口宽;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox TopInfo;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox Resolution;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button button9;
     }
 }
 

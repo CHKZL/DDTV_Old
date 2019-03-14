@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DD监控室
@@ -12,15 +13,35 @@ namespace DD监控室
     {
         public static int 流编号 = 0;
         //检测是否在直播
-        public static string getBiliRoomId(string ID)
+        public static string getBiliRoomId(string ID,string ty)
         {
             //读取设置
             var originalRoomId = ID;
             string _flvUrl = "";
             //准备查找下载地址
             //查找真实房间号
-            string _roomid = GetRoomid(ID);
-            if (_roomid == "该房间未在直播"|| _roomid==null)
+            string _roomid = "";
+            switch (ty)
+            {
+                case "bilibili":
+                    _roomid = GetRoomid(ID);
+                    break;
+                case "youtube":
+                    try
+                    {
+                        string ASDASD = MMPU.get返回网页内容("https://www.youtube.com/channel/UCcnoKv531otgPrd3NcR0mag/live");
+                        ASDASD = ASDASD.Replace("\\\"},\\\"playbackTracking\\\"", "㈨").Split('㈨')[0].Replace("\\\"hlsManifestUrl\\\":\\\"", "㈨").Split('㈨')[1].Replace("\",\\\"probeUrl\\\"", "㈨").Split('㈨')[0].Replace("\\", "");
+                        _roomid = MMPU.get返回网页内容(ASDASD);
+                    }
+                    catch (Exception)
+                    {
+                        _roomid = "该房间未在直播";
+                    }
+                    break;
+            }
+
+          
+            if (_roomid == "该房间未在直播"|| string.IsNullOrEmpty(_roomid))
             {
                 return "该房间未在直播";
             }
@@ -39,10 +60,29 @@ namespace DD监控室
         /// 获取网页标题
         /// </summary>
         /// <param name="ID">房间号</param>
+        /// <param name="来源">直播平台</param>
         /// <returns></returns>
-        public static string GetUrlTitle(string ID)
+        public static string GetUrlTitle(string ID,string 来源)
         {
             var roomWebPageUrl = "https://live.bilibili.com/" + ID;
+            switch(来源)
+            {
+                case "bilibili":
+                    {
+                        roomWebPageUrl = "https://live.bilibili.com/" + ID;
+                        break;
+                    }
+                case "youtube":
+                    {
+                        roomWebPageUrl = "https://www.youtube.com/channel/"+ID+"/live";
+                        break;
+                    }
+                default:
+                    {
+                        return "获取网页标题失败";
+                    }
+
+            }
             var wc = new WebClient();
             wc.Encoding = Encoding.UTF8;
             wc.Headers.Add("Accept: text/html");
@@ -58,10 +98,38 @@ namespace DD监控室
             {   
                 return "获取网页标题失败";
             }
-            string[] ASD = roomHtml.Replace("</title>", "≯").Split('≯')[0].Replace("<title", "≯").Split('≯')[1].Replace("\">", "≯").Split('≯');
+            string 标题 = "";
+            switch (来源)
+            {
+                case "bilibili":
+                    {
+                        try
+                        {
+                            标题 = roomHtml.Replace("</title>", "≯").Split('≯')[0].Replace("<title", "≯").Split('≯')[1].Replace("\">", "≯").Split('≯')[1];
+                        }
+                        catch (Exception)
+                        {
+                            return "获取网页标题失败";
+                        }
+                        
+                        break;
+                    }
+                case "youtube":
+                    {
+                        
+                        标题 = roomHtml.Replace("\"title\":\"", "㈨").Split('㈨')[1].Replace("\",", "㈨").Split('㈨')[0].Replace("\\","");
+                        break;
+                    }
+                default:
+                    {
+                        return "获取网页标题失败";
+                    }
+
+            }
+            
             try
             {
-                return ASD[1].Replace("- 哔哩哔哩直播，二次元弹幕直播平台", "");
+                return 标题.Replace("- 哔哩哔哩直播，二次元弹幕直播平台", "");
             }
             catch (Exception)
             {

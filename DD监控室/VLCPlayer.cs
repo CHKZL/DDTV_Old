@@ -91,6 +91,32 @@ namespace DD监控室
             }
 
         }
+        public void PlayFile(string filePath, IntPtr handle)
+        {
+            if (libvlc_instance_ == IntPtr.Zero || libvlc_media_player_ == IntPtr.Zero) return;
+            this.SetRenderWindow((int)handle);
+
+            IntPtr pathPtr = VLCUtil.StringToPtr(filePath);
+            //从url取视频
+            IntPtr libvlc_media = VLCAPI.libvlc_media_new_path(libvlc_instance_, pathPtr);
+            Marshal.FreeHGlobal(pathPtr);
+            if (libvlc_media != IntPtr.Zero)
+            {
+                //取时长前必须调用 
+                //VLCAPI.libvlc_media_parse(libvlc_media);
+
+
+                //duration_ = VLCAPI.libvlc_media_get_duration(libvlc_media) / 1000.0;
+
+                VLCAPI.libvlc_media_player_set_media(libvlc_media_player_, libvlc_media);
+
+                VLCAPI.libvlc_media_release(libvlc_media);
+
+                VLCAPI.libvlc_media_player_play(libvlc_media_player_);
+
+            }
+
+        }
 
         public void Pause()
         {

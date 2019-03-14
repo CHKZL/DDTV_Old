@@ -17,7 +17,8 @@ namespace DD监控室
         {
             public string Name { get; set; }
             public string RoomNumber { get; set; }
-            public bool Ty { get; set; }
+            public string Types { get; set; }
+            public bool status { get; set; }
         }
         /// <summary>
         /// 房间的动态数据
@@ -28,7 +29,7 @@ namespace DD监控室
             public string RoomNumber { get; set; }
             public string Text { get; set; }
             public string steam { get; set; }
-            public bool Ty { get; set; }
+            public bool status { get; set; }
             public bool Top { get; set; }
         }
        
