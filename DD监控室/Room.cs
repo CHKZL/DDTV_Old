@@ -19,6 +19,7 @@ namespace DD监控室
             public string RoomNumber { get; set; }
             public string Types { get; set; }
             public bool status { get; set; }
+            public bool VideoStatus { get; set; }
         }
         /// <summary>
         /// 房间的动态数据
@@ -31,6 +32,7 @@ namespace DD监控室
             public string steam { get; set; }
             public bool status { get; set; }
             public bool Top { get; set; }
+            
         }
        
     }

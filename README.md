@@ -4,8 +4,6 @@ DD导播中心
 
 ## 为何要写这个东西
 ~~当然是为了方便的爱着大家啊(震声！~~  
-用浏览器多开的时候卡爆(chrome就是说的你)，一般开5个高清直播同时开D，chrome就把CPU吃满了。开发中测试了一下，10个视频大概CPU使用率在20%-30%左右。  
-而且浏览器页面不方便平铺。  
 估摸着可以给DD国添砖加瓦，就想了一下需求，DUANG~就变出来了。
 
 ## 写给不会使用gayhub的：怎么下载
@@ -27,9 +25,11 @@ DD中：
 
 ![DD中](https://github.com/CHKZL/DDTV/blob/master/src/2.png)
 
+![DD中](https://github.com/CHKZL/DDTV/blob/master/src/3.png)
+
 开播提示：
 
-![开播提示](https://github.com/CHKZL/DDTV/blob/master/src/3.png)
+![开播提示](https://github.com/CHKZL/DDTV/blob/master/src/4.png)
 
 ## 兼容性
 暂时没遇到什么兼容性问题，估计最容易出问题的是解码器(((望天....
@@ -49,7 +49,7 @@ DD中：
 * 流选择，备选选择
 * 在标题滑动鼠标滚轮修改窗口音量
 * 缩小到系统托盘后台监听
-* ~~录像~~
-* ~~增加其他直播平台如油管的支持~~
+* 手动录像/开播自动录像
+* 弹幕显示
   
 ~~暂时还没想到其他的需求，欢迎提供~~

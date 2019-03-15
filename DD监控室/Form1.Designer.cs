@@ -34,9 +34,9 @@
             this.button1 = new System.Windows.Forms.Button();
             this.T1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.Resolution = new System.Windows.Forms.ComboBox();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label5 = new System.Windows.Forms.Label();
             this.流 = new System.Windows.Forms.ComboBox();
@@ -60,17 +60,22 @@
             this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.liveIndex = new System.Windows.Forms.ComboBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Resolution = new System.Windows.Forms.ComboBox();
             this.button5 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.skinEngine1 = new Sunisoft.IrisSkin.SkinEngine();
             this.DDTV = new System.Windows.Forms.NotifyIcon(this.components);
             this.button9 = new System.Windows.Forms.Button();
+            this.DMNF = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // trackBar1
@@ -86,7 +91,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(524, 12);
+            this.button1.Location = new System.Drawing.Point(597, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(65, 23);
             this.button1.TabIndex = 2;
@@ -97,7 +102,7 @@
             // T1
             // 
             this.T1.Enabled = false;
-            this.T1.Location = new System.Drawing.Point(567, -15);
+            this.T1.Location = new System.Drawing.Point(640, -15);
             this.T1.Name = "T1";
             this.T1.Size = new System.Drawing.Size(151, 21);
             this.T1.TabIndex = 3;
@@ -108,6 +113,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox1.Controls.Add(this.button12);
+            this.groupBox1.Controls.Add(this.button11);
+            this.groupBox1.Controls.Add(this.button10);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.TopInfo);
             this.groupBox1.Controls.Add(this.label8);
@@ -128,47 +136,40 @@
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Location = new System.Drawing.Point(12, 70);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(492, 288);
+            this.groupBox1.Size = new System.Drawing.Size(496, 288);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "控制";
             // 
-            // groupBox4
+            // button12
             // 
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.Resolution);
-            this.groupBox4.Location = new System.Drawing.Point(18, 375);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(201, 44);
-            this.groupBox4.TabIndex = 27;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "youtube";
+            this.button12.Location = new System.Drawing.Point(453, 225);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(39, 23);
+            this.button12.TabIndex = 30;
+            this.button12.Text = "跳转";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
-            // label9
+            // button11
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 17);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 12);
-            this.label9.TabIndex = 20;
-            this.label9.Text = "分辨率";
+            this.button11.Location = new System.Drawing.Point(215, 253);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(149, 23);
+            this.button11.TabIndex = 29;
+            this.button11.Text = "录制当前选中的房间直播";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
-            // Resolution
+            // button10
             // 
-            this.Resolution.FormattingEnabled = true;
-            this.Resolution.Items.AddRange(new object[] {
-            "256x144 ",
-            "426x240",
-            "640x360",
-            "854x480",
-            "1280x720",
-            "1920x1080"});
-            this.Resolution.Location = new System.Drawing.Point(67, 14);
-            this.Resolution.Name = "Resolution";
-            this.Resolution.Size = new System.Drawing.Size(121, 20);
-            this.Resolution.TabIndex = 19;
-            this.Resolution.Text = "640x360";
-            this.Resolution.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.button10.Location = new System.Drawing.Point(370, 253);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(117, 23);
+            this.button10.TabIndex = 27;
+            this.button10.Text = "设置开播自动录像";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // groupBox3
             // 
@@ -298,7 +299,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(215, 258);
+            this.label4.Location = new System.Drawing.Point(213, 230);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 12);
             this.label4.TabIndex = 17;
@@ -306,14 +307,14 @@
             // 
             // RoomNametext
             // 
-            this.RoomNametext.Location = new System.Drawing.Point(256, 255);
+            this.RoomNametext.Location = new System.Drawing.Point(254, 226);
             this.RoomNametext.Name = "RoomNametext";
-            this.RoomNametext.Size = new System.Drawing.Size(136, 21);
+            this.RoomNametext.Size = new System.Drawing.Size(110, 21);
             this.RoomNametext.TabIndex = 16;
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(447, 253);
+            this.button7.Location = new System.Drawing.Point(412, 225);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(39, 23);
             this.button7.TabIndex = 15;
@@ -323,7 +324,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(399, 253);
+            this.button6.Location = new System.Drawing.Point(367, 225);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(43, 23);
             this.button6.TabIndex = 14;
@@ -337,7 +338,7 @@
             this.listBox.FormattingEnabled = true;
             this.listBox.Location = new System.Drawing.Point(217, 20);
             this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(269, 225);
+            this.listBox.Size = new System.Drawing.Size(270, 199);
             this.listBox.TabIndex = 13;
             this.listBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.listBox_MouseClick);
             this.listBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseDoubleClick);
@@ -396,9 +397,46 @@
             this.liveIndex.TabIndex = 4;
             this.liveIndex.SelectedIndexChanged += new System.EventHandler(this.选择直播_SelectedIndexChanged);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.Resolution);
+            this.groupBox4.Location = new System.Drawing.Point(18, 375);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(201, 44);
+            this.groupBox4.TabIndex = 27;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "youtube";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(13, 17);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(41, 12);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "分辨率";
+            // 
+            // Resolution
+            // 
+            this.Resolution.FormattingEnabled = true;
+            this.Resolution.Items.AddRange(new object[] {
+            "256x144 ",
+            "426x240",
+            "640x360",
+            "854x480",
+            "1280x720",
+            "1920x1080"});
+            this.Resolution.Location = new System.Drawing.Point(67, 14);
+            this.Resolution.Name = "Resolution";
+            this.Resolution.Size = new System.Drawing.Size(121, 20);
+            this.Resolution.TabIndex = 19;
+            this.Resolution.Text = "640x360";
+            this.Resolution.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(664, 12);
+            this.button5.Location = new System.Drawing.Point(737, 12);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(52, 23);
             this.button5.TabIndex = 12;
@@ -409,7 +447,7 @@
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(595, 12);
+            this.button2.Location = new System.Drawing.Point(668, 12);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(65, 23);
             this.button2.TabIndex = 7;
@@ -421,7 +459,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Enabled = false;
-            this.label2.Location = new System.Drawing.Point(520, -12);
+            this.label2.Location = new System.Drawing.Point(593, -12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 6;
@@ -445,21 +483,43 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(384, 41);
+            this.button9.Location = new System.Drawing.Point(581, 36);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(43, 23);
+            this.button9.Size = new System.Drawing.Size(75, 23);
             this.button9.TabIndex = 28;
-            this.button9.Text = "添加";
+            this.button9.Text = "button9";
             this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click_2);
+            this.button9.Click += new System.EventHandler(this.button9_Click_3);
+            // 
+            // DMNF
+            // 
+            this.DMNF.AutoSize = true;
+            this.DMNF.Location = new System.Drawing.Point(5, 354);
+            this.DMNF.Name = "DMNF";
+            this.DMNF.Size = new System.Drawing.Size(234, 16);
+            this.DMNF.TabIndex = 30;
+            this.DMNF.Text = "打开弹幕(测试功能,对硬件有点要求..)";
+            this.DMNF.UseVisualStyleBackColor = true;
+            this.DMNF.CheckedChanged += new System.EventHandler(this.DMNF_CheckedChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(333, 351);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(167, 12);
+            this.label10.TabIndex = 31;
+            this.label10.Text = "房间列表刷新完成后再操作...";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(516, 370);
-            this.Controls.Add(this.groupBox4);
+            this.ClientSize = new System.Drawing.Size(520, 370);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.DMNF);
             this.Controls.Add(this.button9);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.T1);
@@ -468,22 +528,24 @@
             this.Controls.Add(this.button5);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximumSize = new System.Drawing.Size(516, 370);
-            this.MinimumSize = new System.Drawing.Size(516, 370);
+            this.MaximumSize = new System.Drawing.Size(520, 370);
+            this.MinimumSize = new System.Drawing.Size(520, 370);
             this.Name = "Form1";
             this.Text = "DD导播中心(多路直播监控)";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -526,6 +588,11 @@
         private System.Windows.Forms.ComboBox Resolution;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.CheckBox DMNF;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Label label10;
     }
 }
 

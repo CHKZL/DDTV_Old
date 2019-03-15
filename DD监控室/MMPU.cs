@@ -11,25 +11,35 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace DD监控室
 {
-    class MMPU
+   public class MMPU
     {
         private static string RoomConfigFile = "./RoomListConfig.ini";
+        public static List<string> DMlist = new List<string>();
+        public static int DmNum = 0;
+        public class danmu
+        {
+            public int mode { get; set; }//模式
+            public string text { get; set; }//内容
+            public int stime { get; set; }//时间
+            public int size { get; set; }//大小
+            public string color { get; set; }//颜色
+        }
         /// <summary>
         /// 获取房间的弹幕
         /// </summary>
         /// <param name="room">房间号</param>
         /// <returns></returns>
-        static string 获取弹幕(string room)
+        public static string getbalabala(string room)
         {
-            string postString = "roomid=" + room + "&token=&csrf_token=";//要发送的数据
-            byte[] postData = Encoding.UTF8.GetBytes(postString);//编码，尤其是汉字，事先要看下抓取网页的编码方式  
-            string url = @"http://api.live.bilibili.com/ajax/msg";//地址  
+            string postString = "roomid=" + room + "&token=&csrf_token=";
+            byte[] postData = Encoding.UTF8.GetBytes(postString);
+            string url = @"http://api.live.bilibili.com/ajax/msg";
 
             WebClient webClient = new WebClient();
             webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
-            webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");//采取POST方式必须加的header，如果改为GET方式的话就去掉这句话即可  
+            webClient.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
             webClient.Headers.Add("Cookie", "");
-            byte[] responseData = webClient.UploadData(url, "POST", postData);//得到返回字符流  
+            byte[] responseData = webClient.UploadData(url, "POST", postData);
             string srcString = Encoding.UTF8.GetString(responseData);//解码  
             return srcString;
         }
@@ -136,23 +146,29 @@ namespace DD监控室
         }
         public static string HttpDownloadFile(string url, string path)
         {
-            // 设置参数
-            HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-            //发送请求并获取相应回应数据
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            //直到request.GetResponse()程序才开始向目标网页发送Post请求
-            Stream responseStream = response.GetResponseStream();
-            //创建本地文件写入流
-            Stream stream = new FileStream(path, FileMode.Create);
-            byte[] bArr = new byte[1024];
-            int size = responseStream.Read(bArr, 0, (int)bArr.Length);
-            while (size > 0)
+            try
             {
-                stream.Write(bArr, 0, size);
-                size = responseStream.Read(bArr, 0, (int)bArr.Length);
+                // 设置参数
+                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                //发送请求并获取相应回应数据
+                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                //直到request.GetResponse()程序才开始向目标网页发送Post请求
+                Stream responseStream = response.GetResponseStream();
+                //创建本地文件写入流
+                Stream stream = new FileStream(path, FileMode.Create);
+                byte[] bArr = new byte[1024];
+                int size = responseStream.Read(bArr, 0, (int)bArr.Length);
+                while (size > 0)
+                {
+                    stream.Write(bArr, 0, size);
+                    size = responseStream.Read(bArr, 0, (int)bArr.Length);
+                }
+                stream.Close();
+                responseStream.Close();
             }
-            stream.Close();
-            responseStream.Close();
+            catch (Exception)
+            {
+            }
             return path;
         }
         /// <summary>
