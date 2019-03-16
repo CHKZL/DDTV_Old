@@ -91,7 +91,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(597, 12);
+            this.button1.Location = new System.Drawing.Point(25, 411);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(65, 23);
             this.button1.TabIndex = 2;
@@ -102,7 +102,7 @@
             // T1
             // 
             this.T1.Enabled = false;
-            this.T1.Location = new System.Drawing.Point(640, -15);
+            this.T1.Location = new System.Drawing.Point(68, 384);
             this.T1.Name = "T1";
             this.T1.Size = new System.Drawing.Size(151, 21);
             this.T1.TabIndex = 3;
@@ -115,12 +115,18 @@
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
             this.groupBox1.Controls.Add(this.button12);
             this.groupBox1.Controls.Add(this.button11);
+            this.groupBox1.Controls.Add(this.button9);
             this.groupBox1.Controls.Add(this.button10);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.TopInfo);
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.T1);
             this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.RoomNametext);
@@ -436,7 +442,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(737, 12);
+            this.button5.Location = new System.Drawing.Point(165, 411);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(52, 23);
             this.button5.TabIndex = 12;
@@ -447,7 +453,7 @@
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(668, 12);
+            this.button2.Location = new System.Drawing.Point(96, 411);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(65, 23);
             this.button2.TabIndex = 7;
@@ -459,7 +465,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Enabled = false;
-            this.label2.Location = new System.Drawing.Point(593, -12);
+            this.label2.Location = new System.Drawing.Point(21, 387);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 6;
@@ -483,7 +489,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(581, 36);
+            this.button9.Location = new System.Drawing.Point(9, 435);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(75, 23);
             this.button9.TabIndex = 28;
@@ -496,9 +502,9 @@
             this.DMNF.AutoSize = true;
             this.DMNF.Location = new System.Drawing.Point(5, 354);
             this.DMNF.Name = "DMNF";
-            this.DMNF.Size = new System.Drawing.Size(234, 16);
+            this.DMNF.Size = new System.Drawing.Size(294, 16);
             this.DMNF.TabIndex = 30;
-            this.DMNF.Text = "打开弹幕(测试功能,对硬件有点要求..)";
+            this.DMNF.Text = "打开弹幕(测试功能,对硬件有点要求)和全屏有冲突";
             this.DMNF.UseVisualStyleBackColor = true;
             this.DMNF.CheckedChanged += new System.EventHandler(this.DMNF_CheckedChanged);
             // 
@@ -518,14 +524,8 @@
             this.ClientSize = new System.Drawing.Size(520, 370);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.DMNF);
-            this.Controls.Add(this.button9);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.T1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button5);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximumSize = new System.Drawing.Size(520, 370);

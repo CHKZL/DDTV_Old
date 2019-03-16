@@ -87,13 +87,11 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IrisSkin4, Version=2006.3.22.45, Culture=neutral, PublicKeyToken=127be25a6db25e07, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\IrisSkin4.dll</HintPath>
+    <Reference Include="IrisSkin4">
+      <HintPath>Y:\DDTV\rst\1.0.1.5\IrisSkin4.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\MaterialSkin.dll</HintPath>
+    <Reference Include="MaterialSkin">
+      <HintPath>Y:\DDTV\rst\1.0.1.5\MaterialSkin.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

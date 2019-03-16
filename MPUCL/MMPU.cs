@@ -15,8 +15,9 @@ namespace MPUCL
 {
     public class MMPU
     {
-        private static string RoomConfigFile = "./RoomListConfig.ini";
-        public static List<string> DMlist = new List<string>();
+        public static string RoomConfigFile = "./RoomListConfig.json";
+        public static List<List<string>> DMlist = new List<List<string>>();
+
 
         public static int DmNum = 0;
         public static bool 弹幕开关 = false;
@@ -33,7 +34,7 @@ namespace MPUCL
         /// </summary>
         /// <param name="room">房间号</param>
         /// <returns></returns>
-        public static string getbalabala(string room)
+        public static string getbalabala(string room,int R)
         {
             string postString = "roomid=" + room + "&token=&csrf_token=";
             byte[] postData = Encoding.UTF8.GetBytes(postString);
@@ -51,11 +52,10 @@ namespace MPUCL
                 for (int i = 0; i < 10; i++)
                 {
                     string A = jo["data"]["room"][i]["text"].ToString();
-
-                    if (!MMPU.DMlist.Contains(A))
+                    if (!DMlist[R].Contains(A))
                     {
 
-                        MMPU.DMlist.Add(A);
+                        DMlist[R].Add(A);
                     }
                 }
             }
@@ -139,11 +139,31 @@ namespace MPUCL
         /// <returns></returns>
         public static string ReadFile(string file)
         {
-            string str;
-            StreamReader sr = new StreamReader(file, true);
-            str = sr.ReadLine().ToString();
-            sr.Close();
-            return str;
+            try
+            {
+                StreamReader sr = new StreamReader(file, Encoding.UTF8);
+                String line;
+                string A1 = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    A1 += line.ToString();
+                }
+                return A1;
+            }
+            catch (Exception)
+            {
+                File.Move("./RoomListConfig.ini", file);
+                StreamReader sr = new StreamReader(file, Encoding.UTF8);
+                String line;
+                string A1 = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    A1 += line.ToString();
+                }
+
+                return A1;
+            }
+
         }
         /// <summary>
         /// 通过get方式返回内容

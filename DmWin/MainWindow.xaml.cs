@@ -25,20 +25,46 @@ namespace DmWin
     public partial class MainWindow : Window
     {
         bool KA = false;
+        public static int R = 0;
         public MainWindow(string A)
         {
             InitializeComponent();
-            if(A!="0")
+            R = int.Parse(A);
+            if (A != "0")
             {
-                KA = true;
+                // KA = true;
+                List<string> cs = new List<string>() { "0"};
+                MMPU.DMlist.Add(cs);
                 持续读取弹幕放入弹幕list(getUriSteam.GetRoomid(A));
-                this.SizeChanged += new System.Windows.SizeChangedEventHandler(MainWindow_Resize);
-                this.Closed += MainWindow_Closed1; ;
-                Browser.Address = (@"Y:\BILIBILI\Debug\弹幕测试\index.html");
+                Thread T1 = new Thread(new ThreadStart(delegate
+                {
+                    while (true)
+                    {
+                        this.Dispatcher.Invoke(
+                 new Action(
+                   delegate
+                   {
+                       Browser.Width = this.Width;
+                       Browser.Height = this.Height;
+                   }
+                   ));
+
+                        Thread.Sleep(500);
+                    }
+                }));
+                T1.IsBackground = true;
+                T1.Start();
+                // this.SizeChanged += new System.Windows.SizeChangedEventHandler(MainWindow_Resize);
+                // this.Closed += MainWindow_Closed1; ;
+                //Browser.Address = (@"Y:\DDTV\1.0.1.5\DM_System\index.html");
+
+                string asdsad = AppDomain.CurrentDomain.BaseDirectory + @"index.html";
+                // Browser.Address = AppDomain.CurrentDomain.BaseDirectory + @"index.html";
+                Browser.Address = (asdsad);
                 Browser.Margin = new Thickness(0, 0, 0, 0);
                 CefSharp.CefSharpSettings.LegacyJavascriptBindingEnabled = true;
                 Browser.RegisterJsObject("boud", new JsEvent(), new CefSharp.BindingOptions() { CamelCaseJavascriptNames = false });
-            }        
+            }
         }
 
         private void MainWindow_Closed1(object sender, EventArgs e)
@@ -48,11 +74,8 @@ namespace DmWin
 
         private void MainWindow_Resize(object sender, EventArgs e)
         {
-           if (KA)
-            {
-                Browser.Width = this.Width;
-                Browser.Height = this.Height;
-            }
+            Browser.Width = this.Width;
+            Browser.Height = this.Height;
         }
         public class JsEvent
         {
@@ -61,7 +84,7 @@ namespace DmWin
             {
                 try
                 {
-                    string DM = MMPU.DMlist[MMPU.DmNum];
+                    string DM = MMPU.DMlist[R][MMPU.DmNum];
                     MMPU.DmNum++;
                     js = DM;
                 }
@@ -78,7 +101,14 @@ namespace DmWin
             Thread T1 = new Thread(new ThreadStart(delegate {
                 while (true)
                 {
-                    MMPU.getbalabala(RoomId);
+                    try
+                    {
+                        MMPU.getbalabala(RoomId, R);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                     Thread.Sleep(1000);
                 }
             }));

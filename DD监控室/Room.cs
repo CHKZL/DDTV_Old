@@ -21,6 +21,7 @@ namespace DD监控室
             public bool status { get; set; }
             public bool VideoStatus { get; set; }
         }
+
         /// <summary>
         /// 房间的动态数据
         /// </summary>

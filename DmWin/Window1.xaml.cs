@@ -24,12 +24,17 @@ namespace DmWin
     /// </summary>
     public partial class Window1 : Window
     {
+        public static int R = 0;
         //bool KA = false;
-        public Window1(string A)
+        public Window1(string A,int Fid)
         {
+           
             InitializeComponent();
+            R = Fid;
             if (A != "0")
             {
+                List<string> cs = new List<string>();
+                MMPU.DMlist.Add(cs);
                 // KA = true;
                 持续读取弹幕放入弹幕list(getUriSteam.GetRoomid(A));
                 Thread T1 = new Thread(new ThreadStart(delegate
@@ -62,6 +67,9 @@ namespace DmWin
                 Browser.RegisterJsObject("boud", new JsEvent(), new CefSharp.BindingOptions() { CamelCaseJavascriptNames = false });
             }
         }
+        //CommentCoreLibrary (//github.com/jabbany/CommentCoreLibrary) - Licensed under the MIT license
+        //CommentCoreLibrary (//github.com/jabbany/CommentCoreLibrary) - Licensed under the MIT license
+        //CommentCoreLibrary (//github.com/jabbany/CommentCoreLibrary) - Licensed under the MIT license
 
         private void MainWindow_Closed1(object sender, EventArgs e)
         {
@@ -83,7 +91,7 @@ namespace DmWin
             {
                 try
                 {
-                    string DM = MMPU.DMlist[MMPU.DmNum];
+                    string DM = MMPU.DMlist[R][MMPU.DmNum];
                     MMPU.DmNum++;
                     js = DM;
                 }
@@ -100,7 +108,14 @@ namespace DmWin
             Thread T1 = new Thread(new ThreadStart(delegate {
                 while (true)
                 {
-                    MMPU.getbalabala(RoomId);
+                    try
+                    {
+                        MMPU.getbalabala(RoomId,R);
+                    }
+                    catch (Exception)
+                    {
+
+                    }
                     Thread.Sleep(1000);
                 }
             }));
