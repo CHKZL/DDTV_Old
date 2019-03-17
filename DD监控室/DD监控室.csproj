@@ -90,8 +90,9 @@
     <Reference Include="IrisSkin4">
       <HintPath>Y:\DDTV\rst\1.0.1.5\IrisSkin4.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialSkin">
-      <HintPath>Y:\DDTV\rst\1.0.1.5\MaterialSkin.dll</HintPath>
+    <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\x86\Release\MaterialSkin.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

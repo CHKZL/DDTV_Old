@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaterialSkin.Controls;
-using MaterialSkin;
-using System.Web;
 using System.Threading;
-using System.Net;
 using static DD监控室.Room;
 using Newtonsoft.Json;
 using System.IO;
@@ -19,7 +10,7 @@ using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 using DmWin;
 using MPUCL;
-using System.Net.Sockets;
+using MaterialSkin.Controls;
 
 namespace DD监控室
 {
@@ -38,7 +29,7 @@ namespace DD监控室
         public Size playWindowDefaultSize = new Size(720, 440);//播放窗口的默认大小
         public int indexRoom = 0;
         public string IndexRoomNum = "";
-        public string ver = "1.0.1.5";
+        public string ver = "1.0.1.6";
         public Point WindowTopLeft = new Point(3, 3);
         public bool YtbDloB = false;
 
