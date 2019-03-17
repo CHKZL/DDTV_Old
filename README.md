@@ -59,4 +59,4 @@ DD中：
 ![支付宝](https://github.com/CHKZL/DDTV/blob/master/src/ZFB.jpg)
 * 微信
 
-![微信](https://github.com/CHKZL/DDTV/blob/master/src/WX.jpg)
+![微信](https://github.com/CHKZL/DDTV/blob/master/src/WX.png)
