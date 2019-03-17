@@ -34,6 +34,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.T1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.button13 = new System.Windows.Forms.Button();
+            this.Resolution = new System.Windows.Forms.ComboBox();
+            this.YTBRoomID = new System.Windows.Forms.TextBox();
+            this.vsavgsdbgfdbd = new System.Windows.Forms.Label();
+            this.DMNF = new System.Windows.Forms.CheckBox();
             this.button12 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
@@ -61,21 +69,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.liveIndex = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.Resolution = new System.Windows.Forms.ComboBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.skinEngine1 = new Sunisoft.IrisSkin.SkinEngine();
             this.DDTV = new System.Windows.Forms.NotifyIcon(this.components);
-            this.button9 = new System.Windows.Forms.Button();
-            this.DMNF = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // trackBar1
@@ -91,7 +96,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(25, 411);
+            this.button1.Location = new System.Drawing.Point(576, 218);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(65, 23);
             this.button1.TabIndex = 2;
@@ -102,7 +107,7 @@
             // T1
             // 
             this.T1.Enabled = false;
-            this.T1.Location = new System.Drawing.Point(68, 384);
+            this.T1.Location = new System.Drawing.Point(619, 191);
             this.T1.Name = "T1";
             this.T1.Size = new System.Drawing.Size(151, 21);
             this.T1.TabIndex = 3;
@@ -113,20 +118,18 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.checkBox1);
+            this.groupBox1.Controls.Add(this.groupBox5);
+            this.groupBox1.Controls.Add(this.DMNF);
             this.groupBox1.Controls.Add(this.button12);
             this.groupBox1.Controls.Add(this.button11);
-            this.groupBox1.Controls.Add(this.button9);
             this.groupBox1.Controls.Add(this.button10);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.TopInfo);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.T1);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.RoomNametext);
@@ -142,10 +145,98 @@
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Location = new System.Drawing.Point(12, 70);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(496, 288);
+            this.groupBox1.Size = new System.Drawing.Size(496, 302);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "控制";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(409, 282);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(72, 16);
+            this.checkBox1.TabIndex = 32;
+            this.checkBox1.Text = "油管下载";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label9);
+            this.groupBox5.Controls.Add(this.button13);
+            this.groupBox5.Controls.Add(this.Resolution);
+            this.groupBox5.Controls.Add(this.YTBRoomID);
+            this.groupBox5.Controls.Add(this.vsavgsdbgfdbd);
+            this.groupBox5.Location = new System.Drawing.Point(10, 302);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(477, 48);
+            this.groupBox5.TabIndex = 31;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "youtube下载流";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(261, 20);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(41, 12);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "分辨率";
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(402, 15);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(67, 23);
+            this.button13.TabIndex = 32;
+            this.button13.Text = "开始录制";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // Resolution
+            // 
+            this.Resolution.FormattingEnabled = true;
+            this.Resolution.Items.AddRange(new object[] {
+            "256x144 ",
+            "426x240",
+            "640x360",
+            "854x480",
+            "1280x720",
+            "1920x1080"});
+            this.Resolution.Location = new System.Drawing.Point(308, 17);
+            this.Resolution.Name = "Resolution";
+            this.Resolution.Size = new System.Drawing.Size(88, 20);
+            this.Resolution.TabIndex = 19;
+            this.Resolution.Text = "640x360";
+            this.Resolution.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // YTBRoomID
+            // 
+            this.YTBRoomID.Location = new System.Drawing.Point(45, 17);
+            this.YTBRoomID.Name = "YTBRoomID";
+            this.YTBRoomID.Size = new System.Drawing.Size(214, 21);
+            this.YTBRoomID.TabIndex = 32;
+            // 
+            // vsavgsdbgfdbd
+            // 
+            this.vsavgsdbgfdbd.AutoSize = true;
+            this.vsavgsdbgfdbd.Location = new System.Drawing.Point(7, 22);
+            this.vsavgsdbgfdbd.Name = "vsavgsdbgfdbd";
+            this.vsavgsdbgfdbd.Size = new System.Drawing.Size(41, 12);
+            this.vsavgsdbgfdbd.TabIndex = 33;
+            this.vsavgsdbgfdbd.Text = "房间号";
+            // 
+            // DMNF
+            // 
+            this.DMNF.AutoSize = true;
+            this.DMNF.Location = new System.Drawing.Point(10, 280);
+            this.DMNF.Name = "DMNF";
+            this.DMNF.Size = new System.Drawing.Size(330, 16);
+            this.DMNF.TabIndex = 30;
+            this.DMNF.Text = "打开弹幕(测试功能,高硬件需求)不能和锁定窗口顶层共用";
+            this.DMNF.UseVisualStyleBackColor = true;
+            this.DMNF.CheckedChanged += new System.EventHandler(this.DMNF_CheckedChanged);
             // 
             // button12
             // 
@@ -405,55 +496,37 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Controls.Add(this.Resolution);
-            this.groupBox4.Location = new System.Drawing.Point(18, 375);
+            this.groupBox4.Location = new System.Drawing.Point(807, 212);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(201, 44);
             this.groupBox4.TabIndex = 27;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "youtube";
             // 
-            // label9
+            // button9
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 17);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 12);
-            this.label9.TabIndex = 20;
-            this.label9.Text = "分辨率";
+            this.button9.Location = new System.Drawing.Point(560, 242);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.TabIndex = 28;
+            this.button9.Text = "button9";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click_3);
             // 
-            // Resolution
+            // label2
             // 
-            this.Resolution.FormattingEnabled = true;
-            this.Resolution.Items.AddRange(new object[] {
-            "256x144 ",
-            "426x240",
-            "640x360",
-            "854x480",
-            "1280x720",
-            "1920x1080"});
-            this.Resolution.Location = new System.Drawing.Point(67, 14);
-            this.Resolution.Name = "Resolution";
-            this.Resolution.Size = new System.Drawing.Size(121, 20);
-            this.Resolution.TabIndex = 19;
-            this.Resolution.Text = "640x360";
-            this.Resolution.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(165, 411);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(52, 23);
-            this.button5.TabIndex = 12;
-            this.button5.Text = "关于";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.label2.AutoSize = true;
+            this.label2.Enabled = false;
+            this.label2.Location = new System.Drawing.Point(572, 194);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "直播流";
             // 
             // button2
             // 
             this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(96, 411);
+            this.button2.Location = new System.Drawing.Point(647, 218);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(65, 23);
             this.button2.TabIndex = 7;
@@ -461,15 +534,15 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // label2
+            // button5
             // 
-            this.label2.AutoSize = true;
-            this.label2.Enabled = false;
-            this.label2.Location = new System.Drawing.Point(21, 387);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "直播流";
+            this.button5.Location = new System.Drawing.Point(716, 218);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(52, 23);
+            this.button5.TabIndex = 12;
+            this.button5.Text = "关于";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // skinEngine1
             // 
@@ -487,49 +560,33 @@
             this.DDTV.Visible = true;
             this.DDTV.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(9, 435);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 28;
-            this.button9.Text = "button9";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click_3);
-            // 
-            // DMNF
-            // 
-            this.DMNF.AutoSize = true;
-            this.DMNF.Location = new System.Drawing.Point(5, 354);
-            this.DMNF.Name = "DMNF";
-            this.DMNF.Size = new System.Drawing.Size(294, 16);
-            this.DMNF.TabIndex = 30;
-            this.DMNF.Text = "打开弹幕(测试功能,对硬件有点要求)和全屏有冲突";
-            this.DMNF.UseVisualStyleBackColor = true;
-            this.DMNF.CheckedChanged += new System.EventHandler(this.DMNF_CheckedChanged);
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(333, 351);
+            this.label10.Enabled = false;
+            this.label10.Location = new System.Drawing.Point(305, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(167, 12);
-            this.label10.TabIndex = 31;
-            this.label10.Text = "房间列表刷新完成后再操作...";
+            this.label10.Size = new System.Drawing.Size(59, 12);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "1.0.1.6.a";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 370);
-            this.Controls.Add(this.label10);
-            this.Controls.Add(this.DMNF);
-            this.Controls.Add(this.groupBox4);
+            this.ClientSize = new System.Drawing.Size(520, 384);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.T1);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximumSize = new System.Drawing.Size(520, 370);
-            this.MinimumSize = new System.Drawing.Size(520, 370);
+            this.MaximumSize = new System.Drawing.Size(520, 384);
+            this.MinimumSize = new System.Drawing.Size(520, 384);
             this.Name = "Form1";
             this.Text = "DD导播中心(多路直播监控)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -540,12 +597,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -592,6 +649,11 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.CheckBox DMNF;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Label vsavgsdbgfdbd;
+        private System.Windows.Forms.TextBox YTBRoomID;
+        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label10;
     }
 }

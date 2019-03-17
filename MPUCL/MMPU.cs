@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
@@ -19,7 +20,7 @@ namespace MPUCL
         public static List<List<string>> DMlist = new List<List<string>>();
 
 
-        public static int DmNum = 0;
+        public static List<int> DmNum = new List<int>();
         public static bool 弹幕开关 = false;
         public class danmu
         {
@@ -208,8 +209,9 @@ namespace MPUCL
                 stream.Close();
                 responseStream.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                string AASD = ex.ToString();
             }
             return path;
         }
@@ -266,5 +268,7 @@ namespace MPUCL
         {
             File.Delete(Path);
         }
+
+       
     }
 }
