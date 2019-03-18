@@ -116,9 +116,13 @@ namespace MPUCL
         public static void SaveFile(string file, string str)
         {
             FileStream fs = new FileStream(file, FileMode.Create);
-            byte[] data = Encoding.UTF8.GetBytes(str);
-            fs.Write(data, 0, data.Length);
-            fs.Flush();
+            StreamWriter sw = new StreamWriter(fs);
+            //开始写入
+            sw.Write(str);
+            //清空缓冲区
+            sw.Flush();
+            //关闭流
+            sw.Close();
             fs.Close();
         }
         public static void InitializeRoomConfigFile()
@@ -149,6 +153,8 @@ namespace MPUCL
                 {
                     A1 += line.ToString();
                 }
+                sr.Close();
+                sr.Dispose();
                 return A1;
             }
             catch (Exception)
@@ -161,7 +167,8 @@ namespace MPUCL
                 {
                     A1 += line.ToString();
                 }
-
+                sr.Close();
+                sr.Dispose();
                 return A1;
             }
 
@@ -191,27 +198,31 @@ namespace MPUCL
         {
             try
             {
-                // 设置参数
-                HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
-                //发送请求并获取相应回应数据
-                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-                //直到request.GetResponse()程序才开始向目标网页发送Post请求
-                Stream responseStream = response.GetResponseStream();
-                //创建本地文件写入流
-                Stream stream = new FileStream(path, FileMode.Create);
-                byte[] bArr = new byte[1024];
-                int size = responseStream.Read(bArr, 0, (int)bArr.Length);
-                while (size > 0)
-                {
-                    stream.Write(bArr, 0, size);
-                    size = responseStream.Read(bArr, 0, (int)bArr.Length);
-                }
-                stream.Close();
-                responseStream.Close();
+              
+                    // 设置参数
+                    HttpWebRequest request = WebRequest.Create(url) as HttpWebRequest;
+                    //发送请求并获取相应回应数据
+                    HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                    request.Timeout = 5000;
+                    //直到request.GetResponse()程序才开始向目标网页发送Post请求
+                    Stream responseStream = response.GetResponseStream();
+                    //创建本地文件写入流
+                    Stream stream = new FileStream(path, FileMode.Create);
+                    byte[] bArr = new byte[1024];
+                    int size = responseStream.Read(bArr, 0, (int)bArr.Length);
+                    while (size > 0)
+                    {
+                        stream.Write(bArr, 0, size);
+                        size = responseStream.Read(bArr, 0, (int)bArr.Length);
+                    }
+                    stream.Close();
+                    responseStream.Close();
+              
             }
             catch (Exception ex)
             {
                 string AASD = ex.ToString();
+                return "0";
             }
             return path;
         }
@@ -266,9 +277,40 @@ namespace MPUCL
         }
         public static void DelFile(string Path)
         {
-            File.Delete(Path);
-        }
+            try
+            {
+                File.Delete(Path);
+            }
+            catch (Exception)
+            {
 
+                
+            }
+        }
+        public static void bilibiliDlo(string A,string 标题)
+        {
+            Thread T1 = new Thread(new ThreadStart(delegate {
+                int tt2 = 0;
+
+                while (true)
+                {
+                    if (MMPU.HttpDownloadFile(getUriSteam.GetTrueUrl(A), "./tmp/" + A + "_" + 标题 + DateTime.Now.ToString("yyyyMMddHHmmss") + ".flv") != "0")
+                    {
+                        tt2 = 0;
+                    }
+                    tt2++;
+                    if (tt2 >= 10)
+                    {
+                        break;
+                    }
+                    Thread.Sleep(10000); ;
+                }
+            }));
+            T1.IsBackground = true;
+            T1.Start();
+
+            //BackMessage("目标流返回的数据已经接受完毕，该提示一般是录制结束的提示，但是有时候会出现因为网络/直播流错误而产生,录像文件:" + "./tmp/" + Roomlist[i].RoomNumber + "_" + 标题 + ".flv", Roomlist[i].Name + " 结束录制", 10000);
+        }
        
     }
 }

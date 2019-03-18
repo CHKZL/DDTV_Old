@@ -1,6 +1,6 @@
 ﻿namespace DD监控室
 {
-    partial class Form1
+    partial class Main
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button1 = new System.Windows.Forms.Button();
             this.T1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.button13 = new System.Windows.Forms.Button();
@@ -49,7 +49,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.流 = new System.Windows.Forms.ComboBox();
             this.TopInfo = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.修改分辨率 = new System.Windows.Forms.Button();
             this.窗口高 = new System.Windows.Forms.TextBox();
@@ -75,12 +74,15 @@
             this.button5 = new System.Windows.Forms.Button();
             this.skinEngine1 = new Sunisoft.IrisSkin.SkinEngine();
             this.DDTV = new System.Windows.Forms.NotifyIcon(this.components);
-            this.label10 = new System.Windows.Forms.Label();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.显示主界面ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button14 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // trackBar1
@@ -119,7 +121,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.Window;
             this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.groupBox5);
             this.groupBox1.Controls.Add(this.DMNF);
             this.groupBox1.Controls.Add(this.button12);
@@ -127,7 +128,6 @@
             this.groupBox1.Controls.Add(this.button10);
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.TopInfo);
-            this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.button8);
@@ -145,21 +145,20 @@
             this.groupBox1.Controls.Add(this.trackBar1);
             this.groupBox1.Location = new System.Drawing.Point(12, 70);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(496, 302);
+            this.groupBox1.Size = new System.Drawing.Size(496, 358);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "控制";
             // 
-            // checkBox1
+            // label10
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(409, 282);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(72, 16);
-            this.checkBox1.TabIndex = 32;
-            this.checkBox1.Text = "油管下载";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged_1);
+            this.label10.AutoSize = true;
+            this.label10.Enabled = false;
+            this.label10.Location = new System.Drawing.Point(353, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(53, 12);
+            this.label10.TabIndex = 29;
+            this.label10.Text = "1.0.1.7a";
             // 
             // groupBox5
             // 
@@ -173,7 +172,7 @@
             this.groupBox5.Size = new System.Drawing.Size(477, 48);
             this.groupBox5.TabIndex = 31;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "youtube下载流";
+            this.groupBox5.Text = "youtube下载流(请确保能连接到油管，并且带宽能流畅播放的分辨率，否则会出错)";
             // 
             // label9
             // 
@@ -225,16 +224,16 @@
             this.vsavgsdbgfdbd.Name = "vsavgsdbgfdbd";
             this.vsavgsdbgfdbd.Size = new System.Drawing.Size(41, 12);
             this.vsavgsdbgfdbd.TabIndex = 33;
-            this.vsavgsdbgfdbd.Text = "房间号";
+            this.vsavgsdbgfdbd.Text = "频道号";
             // 
             // DMNF
             // 
             this.DMNF.AutoSize = true;
             this.DMNF.Location = new System.Drawing.Point(10, 280);
             this.DMNF.Name = "DMNF";
-            this.DMNF.Size = new System.Drawing.Size(330, 16);
+            this.DMNF.Size = new System.Drawing.Size(336, 16);
             this.DMNF.TabIndex = 30;
-            this.DMNF.Text = "打开弹幕(测试功能,高硬件需求)不能和锁定窗口顶层共用";
+            this.DMNF.Text = "打开弹幕(测试功能!,高硬件需求)不能和锁定窗口顶层共用";
             this.DMNF.UseVisualStyleBackColor = true;
             this.DMNF.CheckedChanged += new System.EventHandler(this.DMNF_CheckedChanged);
             // 
@@ -313,17 +312,6 @@
             this.TopInfo.Text = "锁定在最前";
             this.TopInfo.UseVisualStyleBackColor = true;
             this.TopInfo.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Enabled = false;
-            this.label8.Font = new System.Drawing.Font("宋体", 9F);
-            this.label8.Location = new System.Drawing.Point(434, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(53, 12);
-            this.label8.TabIndex = 23;
-            this.label8.Text = "by：某米";
             // 
             // groupBox2
             // 
@@ -555,26 +543,45 @@
             // 
             // DDTV
             // 
+            this.DDTV.ContextMenuStrip = this.contextMenuStrip1;
             this.DDTV.Icon = ((System.Drawing.Icon)(resources.GetObject("DDTV.Icon")));
             this.DDTV.Text = "DDTV";
             this.DDTV.Visible = true;
+            this.DDTV.BalloonTipShown += new System.EventHandler(this.DDTV_BalloonTipShown);
             this.DDTV.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
-            // label10
+            // contextMenuStrip1
             // 
-            this.label10.AutoSize = true;
-            this.label10.Enabled = false;
-            this.label10.Location = new System.Drawing.Point(305, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 12);
-            this.label10.TabIndex = 29;
-            this.label10.Text = "1.0.1.6.a";
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.显示主界面ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(137, 26);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
-            // Form1
+            // 显示主界面ToolStripMenuItem
+            // 
+            this.显示主界面ToolStripMenuItem.Name = "显示主界面ToolStripMenuItem";
+            this.显示主界面ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.显示主界面ToolStripMenuItem.Text = "显示主界面";
+            this.显示主界面ToolStripMenuItem.Click += new System.EventHandler(this.显示主界面ToolStripMenuItem_Click);
+            // 
+            // button14
+            // 
+            this.button14.BackColor = System.Drawing.Color.Transparent;
+            this.button14.Location = new System.Drawing.Point(426, 64);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(75, 23);
+            this.button14.TabIndex = 29;
+            this.button14.Text = "关于";
+            this.button14.UseVisualStyleBackColor = false;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 384);
+            this.ClientSize = new System.Drawing.Size(520, 440);
+            this.Controls.Add(this.button14);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button5);
@@ -585,9 +592,9 @@
             this.Controls.Add(this.button1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MaximumSize = new System.Drawing.Size(520, 384);
-            this.MinimumSize = new System.Drawing.Size(520, 384);
-            this.Name = "Form1";
+            this.MaximumSize = new System.Drawing.Size(520, 440);
+            this.MinimumSize = new System.Drawing.Size(520, 440);
+            this.Name = "Main";
             this.Text = "DD导播中心(多路直播监控)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -603,6 +610,7 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -629,7 +637,6 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.NotifyIcon DDTV;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox 流;
         private System.Windows.Forms.Label label6;
@@ -638,7 +645,6 @@
         private System.Windows.Forms.TextBox 窗口高;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox 窗口宽;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox TopInfo;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label9;
@@ -653,8 +659,11 @@
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Label vsavgsdbgfdbd;
         private System.Windows.Forms.TextBox YTBRoomID;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 显示主界面ToolStripMenuItem;
+        private System.Windows.Forms.NotifyIcon DDTV;
     }
 }
 

@@ -56,7 +56,7 @@ namespace DmWin
                 }));
                 T1.IsBackground = true;
                 T1.Start();
-                //string asdsad = @"Y:\DDTV\rst\1.0.1.5\index.html?Fid=" + Fid;
+                //string asdsad = @"Y:\DDTV\rst\1.0.1.6\index.html?Fid=" + Fid;
                 string asdsad = AppDomain.CurrentDomain.BaseDirectory + @"index.html?Fid="+ Fid;
                 Browser.Address = (asdsad);
                 Browser.Margin = new Thickness(0, 0, 0, 0);
@@ -111,9 +111,10 @@ namespace DmWin
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.ToString());
+
+                        //MessageBox.Show(ex.ToString());
                     }
-                    Thread.Sleep(1000);
+                    Thread.Sleep(1500);
                 }
             }));
             T1.IsBackground = true;

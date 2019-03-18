@@ -14,9 +14,9 @@ using MaterialSkin.Controls;
 
 namespace DD监控室
 {
-    public partial class Form1 : MaterialForm
+    public partial class Main : MaterialForm
     {
-        public Form1()
+        public Main()
         {
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false;
@@ -29,7 +29,7 @@ namespace DD监控室
         public Size playWindowDefaultSize = new Size(720, 440);//播放窗口的默认大小
         public int indexRoom = 0;
         public string IndexRoomNum = "";
-        public string ver = "1.0.1.6";
+        public string ver = "1.0.1.7";
         public Point WindowTopLeft = new Point(3, 3);
         public bool YtbDloB = false;
 
@@ -46,15 +46,16 @@ namespace DD监控室
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             MMPU.InitializeRoomConfigFile();
             CheckVersion();
             egg();
             InitializeRoomList();
+            //UpdateRoomList(false);
             TimelyRefreshingRoomStatus();
             initializationVLC();
             streamNumber++;
         }
-     
 
         /// <summary>
         /// 检查版本
@@ -226,20 +227,42 @@ namespace DD监控室
                     MMPU.IsExistDirectory("./tmp/" + roomId + "/");
                     for (int i = 0; i < LS2.Count; i++)
                     {
+                        LS1.Add(LS2[i][1]);
+                        try
+                        {
+                            if (MMPU.HttpDownloadFile(LS2[i][0], "./tmp/" + roomId + "/" + LS2[i][1] + ".ts") != "0")
+                            {
+                                S++;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            BackMessage("目标流返回的数据已经接受完毕，该提示一般是录制结束的提示，但是有时候会出现因为网络/直播流错误而产生", "录制结束", 10000);
+                            return;
+                        }
+                        //if (LS1.Count == 0)
+                        //{
+                        //    LS1.Add(LS2[i][1]);
+                        //    try
+                        //    {
+                        //        if (MMPU.HttpDownloadFile(LS2[i][0], "./tmp/" + roomId + "/" + LS2[i][1] + ".ts") != "0")
+                        //        {
+                        //            S++;
+                        //        }
+                        //    }
+                        //    catch (Exception)
+                        //    {
 
-                        if (LS1.Count == 0)
-                        {
-                            LS1.Add(LS2[i][1]);
-                            MMPU.HttpDownloadFile(LS2[i][0], "./tmp/" + roomId + "/" + LS2[i][1] + ".ts");
-                            S++;
-                            //break;
-                        }
-                        else if (!LS1.Contains(LS2[i][1]))
-                        {
-                            LS1.Add(LS2[i][1]);
-                            MMPU.HttpDownloadFile(LS2[i][0], "./tmp/" + roomId + "/" + LS2[i][1] + ".ts");
-                            S++;
-                        }
+                        //    }
+
+                        //    //break;
+                        //}
+                        //else if (!LS1.Contains(LS2[i][1]))
+                        //{
+                        //    LS1.Add(LS2[i][1]);
+                        //    MMPU.HttpDownloadFile(LS2[i][0], "./tmp/" + roomId + "/" + LS2[i][1] + ".ts");
+                        //    S++;
+                        //}
                     }
                     RInfo[标号].status = true;
                     if (S > 5 && !播放开始)
@@ -362,7 +385,7 @@ namespace DD监控室
         /// <param name="音量"></param>
         public void EditTitleVolume(int 标号, int 音量)
         {
-            FM[标号].Text = "DDTV-" + RInfo[标号].Name + " 点击标题按F5可刷新 音量:" + 音量 + "%" + " 正在直播:" + RInfo[标号].Text+ "  如果弹幕被挡住了，把鼠标移动到这↓下面↓的这条白线上晃动一下";
+            FM[标号].Text = "DDTV-" + RInfo[标号].Name + " 点击标题按F5可刷新 音量:" + 音量 + "%" + " 正在直播:" + RInfo[标号].Text + "  如果弹幕被挡住了，把鼠标移动到这↓下面↓的这条白线上晃动一下";
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -420,7 +443,8 @@ namespace DD监控室
             List<string> cs = new List<string>() { "0" };
             MMPU.DMlist.Add(cs);
             int aca = 0;
-            MMPU.DmNum.Add(aca);
+            MMPU.DmNum.Add(0);
+
         }
 
         /// <summary>
@@ -486,7 +510,7 @@ namespace DD监控室
             CurrentlyStream = int.Parse(A.Name);
             liveIndex.Text = (CurrentlyStream).ToString();
             TopInfo.Checked = RInfo[CurrentlyStream].Top;
-            if(MMPU.弹幕开关)
+            if (MMPU.弹幕开关)
             {
                 try
                 {
@@ -496,9 +520,9 @@ namespace DD监控室
                 catch (Exception)
                 {
                 }
-               
+
             }
-            
+
         }
 
         private void A_KeyDown(object sender, KeyEventArgs e)
@@ -599,7 +623,7 @@ namespace DD监控室
                 catch (Exception)
                 {
                 }
-             
+
             }
         }
 
@@ -664,7 +688,7 @@ namespace DD监控室
                 catch (Exception)
                 {
                 }
-               
+
             }
         }
 
@@ -690,7 +714,7 @@ namespace DD监控室
                 {
 
                 }
-              
+
             }
         }
         private void 更新窗体内播放器大小(object sender)
@@ -741,7 +765,7 @@ namespace DD监控室
         }
         private void NewLive(string roomId)
         {
-            if(!string.IsNullOrEmpty( roomId))
+            if (!string.IsNullOrEmpty(roomId))
             {
                 roomId = roomId.Replace("https://live.bilibili.com/", "");
             }
@@ -769,12 +793,12 @@ namespace DD监控室
 
                     Window1 W1 = null;
                     DmF.Add(W1);
-            
-                    
+
+
                     UpdateLiveForm(CurrentlyStream, roomId);
                     return;
                 }
-                if(MMPU.弹幕开关)
+                if (MMPU.弹幕开关)
                 {
                     Window1 W1 = new Window1(roomId, CurrentlyStream);
                     W1.Width = FM[CurrentlyStream].Width - 20;
@@ -790,7 +814,7 @@ namespace DD监控室
                     Window1 W1 = null;
                     DmF.Add(W1);
                 }
-              
+
             }
             catch (Exception)
             {
@@ -810,7 +834,7 @@ namespace DD监控室
                             Window1 W1 = null;
                             DmF.Add(W1);
                         }
-                            
+
                         UpdateLiveForm(CurrentlyStream, roomId);
                         return;
                     }
@@ -865,17 +889,9 @@ namespace DD监控室
                     if (Roomlist[i].RoomNumber == IndexRoomNum.ToString())
                     {
                         NewLive(Roomlist[i].RoomNumber);
+                        return;
                     }
                 }
-
-                //for (int i = 0; i < Roomlist.Count; i++)
-                //{
-                //    if (listBox.Items[index].ToString().Length != listBox.Items[index].ToString().Replace(Roomlist[i].RoomNumber, "").Length)
-                //    {
-                //        NewLive(Roomlist[i].RoomNumber);
-
-                //    }
-                //}
 
             }
         }
@@ -883,7 +899,7 @@ namespace DD监控室
         {
             for (int i = 0; i < Roomlist.Count; i++)
             {
-                if (listBox.Items[index].ToString().Split('：')[1].Replace(Roomlist[i].RoomNumber, "").Length==0)
+                if (listBox.Items[index].ToString().Split('：')[1].Replace(Roomlist[i].RoomNumber, "").Length == 0)
                 {
                     return Roomlist[i].RoomNumber;
 
@@ -916,7 +932,7 @@ namespace DD监控室
         {
             if (!string.IsNullOrEmpty(RoomNametext.Text))
             {
-                if(RoomNametext.Text.Length!= RoomNametext.Text.Replace("：","").Length)
+                if (RoomNametext.Text.Length != RoomNametext.Text.Replace("：", "").Length)
                 {
                     MessageBox.Show("房间名里出现了意外的字符: \"：\"");
                     return;
@@ -940,8 +956,11 @@ namespace DD监控室
                             return;
                         }
                     }
-                    UpdateRoomList();
                     SaveRoomInfo();
+                    Thread.Sleep(50);
+                    UpdateRoomList(false);
+
+                    InitializeRoomList();
                 }
                 else
                 {
@@ -963,7 +982,7 @@ namespace DD监控室
                 while (true)
                 {
                     Thread.Sleep(60000);
-                    UpdateRoomList();
+                    UpdateRoomList(false);
                 }
             }));
             T1.IsBackground = true;
@@ -972,102 +991,114 @@ namespace DD监控室
         /// <summary>
         /// 更新房间列表
         /// </summary>
-        public void UpdateRoomList()
+        public void UpdateRoomList(bool 是否储存房间列表)
         {
-            Thread T1 = new Thread(new ThreadStart(delegate
+            try
             {
-                listBox.Items.Clear();
-                for (int i = 0; i < Roomlist.Count; i++)
+                Thread T1 = new Thread(new ThreadStart(delegate
                 {
-                    switch (Roomlist[i].Types)
+                    button8.Text = "刷新中...";
+                    button8.Enabled = false;
+                    listBox.Enabled = false;
+                    listBox.Items.Clear();
+                    List<string> LSbox = new List<string>();
+                    for (int i = 0; i < Roomlist.Count; i++)
                     {
-                        case "bilibili":
-                            {
-                                if (getUriSteam.getBiliRoomId(Roomlist[i].RoomNumber, "bilibili") == "该房间未在直播")
+                        switch (Roomlist[i].Types)
+                        {
+                            case "bilibili":
                                 {
-
-                                    Roomlist[i].status = false;
-
-                                    listBox.Items.Add("[摸鱼中]○" + (Roomlist[i].VideoStatus ? "★" : "") + " " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
-                                }
-                                else
-                                {
-                                    if (!Roomlist[i].status)
+                                    if (getUriSteam.getBiliRoomId(Roomlist[i].RoomNumber, "bilibili") == "该房间未在直播")
                                     {
-                                        if (!startType)
-                                        {
 
-                                            if (Roomlist[i].VideoStatus)
+                                        Roomlist[i].status = false;
+                                        LSbox.Add("[摸鱼中]○" + (Roomlist[i].VideoStatus ? "★" : "") + " " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
+                                        listBox.Items.Add("[摸鱼中]○" + (Roomlist[i].VideoStatus ? "★" : "") + " " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
+                                    }
+                                    else
+                                    {
+                                        if (!Roomlist[i].status)
+                                        {
+                                            if (!startType)
                                             {
                                                 string 标题 = getUriSteam.GetUrlTitle(Roomlist[i].RoomNumber, "bilibili");
-                                                Thread T2 = new Thread(new ThreadStart(delegate
+                                                if (Roomlist[i].VideoStatus)
                                                 {
-                                                    int tt2 = 0;
-                                                    BackMessage("该房间设置了开播自动录像，录像文件:" + "./tmp/" + Roomlist[i].RoomNumber + "_" + 标题 + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".flv", Roomlist[i].Name + " 开始直播了", 5000);
-                                                    while (true)
-                                                    {
-                                                        DloFile(Roomlist[i].RoomNumber, "./tmp/" + Roomlist[i].RoomNumber + "_" + 标题 + ".flv");
-                                                        if (Roomlist[i].VideoStatus == false)
-                                                        {
-                                                            tt2++;
-                                                            if (tt2 >= 6)
-                                                            {
-                                                                break;
-                                                            }
-                                                        }
-                                                        Thread.Sleep(10000);
-                                                    }
-                                                    BackMessage("录像文件:" + "./tmp/" + Roomlist[i].RoomNumber + "_" + 标题 + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".flv", Roomlist[i].Name + " 结束录制", 5000);
-                                                }));
-                                                T2.IsBackground = true;
-                                                T2.Start();
+                                                    BackMessage("该房间设置了开播自动录像，录像文件:" + "./tmp/" + Roomlist[i].RoomNumber + "_" + 标题 + ".flv", Roomlist[i].Name + " 开始直播了", 5000);
+                                                    MMPU.bilibiliDlo(Roomlist[i].RoomNumber, 标题);
+                                                }
+                                                else
+                                                {
+                                                    BackMessage(getUriSteam.GetUrlTitle(Roomlist[i].RoomNumber, "bilibili"), Roomlist[i].Name + " 开始直播了", 5000);
+                                                }
                                             }
-                                            else
-                                            {
-                                                BackMessage(getUriSteam.GetUrlTitle(Roomlist[i].RoomNumber, "bilibili"), Roomlist[i].Name + " 开始直播了", 5000);
-                                            }
+                                            Roomlist[i].status = !Roomlist[i].status;
                                         }
-                                        Roomlist[i].status = !Roomlist[i].status;
+                                        LSbox.Insert(0, "[直播中]●" + (Roomlist[i].VideoStatus ? "★" : "") + " " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
+                                        listBox.Items.Insert(0, "[直播中]●" + (Roomlist[i].VideoStatus ? "★" : "") + " " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
                                     }
-                                    listBox.Items.Insert(0, "[直播中]●" + (Roomlist[i].VideoStatus ? "★" : "") + " " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
                                 }
-                            }
-                            break;
-                        case "youtube":
-                            {
-                                if (YTB)
+                                break;
+                            case "youtube":
                                 {
-                                    listBox.Items.Add("[油　管]◇ " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
+                                    if (YTB)
+                                    {
+                                        listBox.Items.Add("[油　管]◇ " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
 
-                                    //if (getUriSteam.getBiliRoomId(Roomlist[i].RoomNumber, "youtube") == "该房间未在直播")
-                                    //{
+                                        //if (getUriSteam.getBiliRoomId(Roomlist[i].RoomNumber, "youtube") == "该房间未在直播")
+                                        //{
 
-                                    //    Roomlist[i].status = false;
+                                        //    Roomlist[i].status = false;
 
-                                    //    listBox.Items.Add("[油　管]◇ " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
-                                    //}
-                                    //else
-                                    //{
-                                    //    if (!Roomlist[i].status)
-                                    //    {
-                                    //        if (!startType)
-                                    //        {
-                                    //            BackMessage(getUriSteam.GetUrlTitle(Roomlist[i].RoomNumber, "youtube"), Roomlist[i].Name + " 开始直播了", 5000);
-                                    //        }
-                                    //        Roomlist[i].status = !Roomlist[i].status;
-                                    //    }
-                                    //    listBox.Items.Insert(0, "[油　管]◇ " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
-                                    //}
+                                        //    listBox.Items.Add("[油　管]◇ " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
+                                        //}
+                                        //else
+                                        //{
+                                        //    if (!Roomlist[i].status)
+                                        //    {
+                                        //        if (!startType)
+                                        //        {
+                                        //            BackMessage(getUriSteam.GetUrlTitle(Roomlist[i].RoomNumber, "youtube"), Roomlist[i].Name + " 开始直播了", 5000);
+                                        //        }
+                                        //        Roomlist[i].status = !Roomlist[i].status;
+                                        //    }
+                                        //    listBox.Items.Insert(0, "[油　管]◇ " + Roomlist[i].Name + "：" + Roomlist[i].RoomNumber);
+                                        //}
+                                    }
                                 }
-                            }
-                            break;
+                                break;
+                        }
+
                     }
 
-                }
-                startType = false;
-            }));
-            T1.IsBackground = true;
-            T1.Start();
+                    try
+                    {
+                        listBox.Items.Clear();
+                        for (int i = 0; i < LSbox.Count; i++)
+                        {
+                            listBox.Items.Add(LSbox[i]);
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+                    }
+                    button8.Text = "刷新房间列表";
+                    button8.Enabled = true;
+                    listBox.Enabled = true;
+                    startType = false;
+
+
+                }));
+                T1.IsBackground = true;
+                T1.Start();
+            }
+            catch (Exception)
+            {
+
+                
+            }
+           
         }
 
         public void SaveRoomInfo()
@@ -1085,10 +1116,10 @@ namespace DD监控室
             {
                 while (true)
                 {
-                    int a1015 = 0, a1014 = 0, a1013 = 0;
+                    int a1015 = 0, a1014 = 0;
                     try
                     {
-                        
+                        Roomlist = new List<RoomCadr>();
                         //1.0.1.5兼容
                         for (int i = 0; ; i++)
                         {
@@ -1114,9 +1145,9 @@ namespace DD监控室
                         try
                         {
                             //1.0.1.4兼容
-                            if (a1015 ==0)
+                            if (a1015 == 0)
                             {
-                              
+
                                 for (int i = 0; ; i++)
                                 {
 
@@ -1136,10 +1167,10 @@ namespace DD监控室
                             //1.0.1.3兼容
                             if (a1014 == 0)
                             {
-                               
+
                                 for (int i = 0; ; i++)
                                 {
-                                    Roomlist.Add(new RoomCadr() { Name = jo["data"][i]["Name"].ToString(), RoomNumber = jo["data"][i]["RoomNumber"].ToString(), status = ((jo["data"][i]["Ty"].ToString() == "True") ? true : false), Types="bilibili" });
+                                    Roomlist.Add(new RoomCadr() { Name = jo["data"][i]["Name"].ToString(), RoomNumber = jo["data"][i]["RoomNumber"].ToString(), status = ((jo["data"][i]["Ty"].ToString() == "True") ? true : false), Types = "bilibili" });
                                 }
                             }
                             else
@@ -1154,7 +1185,7 @@ namespace DD监控室
             {
                 string A = ex.ToString();
             }
-            UpdateRoomList();
+            UpdateRoomList(false);
         }
 
         /// <summary>
@@ -1175,9 +1206,9 @@ namespace DD监控室
 
         private int getListIndex()
         {
-            for(int i =0;i<listBox.Items.Count;i++)
+            for (int i = 0; i < listBox.Items.Count; i++)
             {
-                if(listBox.Items[i].ToString().Split('：')[1]== IndexRoomNum)
+                if (listBox.Items[i].ToString().Split('：')[1] == IndexRoomNum)
                 {
                     return i;
                 }
@@ -1192,21 +1223,25 @@ namespace DD监控室
         /// <param name="e"></param>
         private void button7_Click_1(object sender, EventArgs e)
         {
-            
-            DialogResult dr = MessageBox.Show("确认要删除"+listBox.Items[getListIndex()].ToString() +"？", "删除", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            DialogResult dr = MessageBox.Show("确认要删除" + listBox.Items[getListIndex()].ToString() + "？", "删除", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dr == DialogResult.OK)
             {
                 listBox.Items.Remove(listBox.Items[getListIndex()]);
-                for(int i =0;i< Roomlist.Count;i++)
+                for (int i = 0; i < Roomlist.Count; i++)
                 {
-                    if(Roomlist[i].RoomNumber== IndexRoomNum.ToString())
+                    if (Roomlist[i].RoomNumber == IndexRoomNum.ToString())
                     {
                         Roomlist.RemoveAt(i);
                     }
                 }
-                
-                UpdateRoomList();
+
+
                 SaveRoomInfo();
+                Thread.Sleep(30);
+                UpdateRoomList(false);
+
+                InitializeRoomList();
             }
             else
             {
@@ -1222,7 +1257,7 @@ namespace DD监控室
         /// <param name="e"></param>
         private void button8_Click(object sender, EventArgs e)
         {
-            UpdateRoomList();
+            UpdateRoomList(false);
         }
 
         private void button9_Click(object sender, EventArgs e)
@@ -1238,11 +1273,25 @@ namespace DD监控室
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Visible = true;
+            if (WindowState == FormWindowState.Minimized)
+            {
+                //还原窗体显示    
+                Show();
+                this.WindowState = FormWindowState.Normal; ;
+                //激活窗体并给予它焦点
+                this.Activate();
+                //任务栏区显示图标
+                this.ShowInTaskbar = true;
+                //托盘区图标隐藏
+                //notifyIcon1.Visible = false;
+            }
 
-            WindowState = FormWindowState.Normal;
 
-            DDTV.Visible = false;
+            //DDTV.Visible = true;
+
+            //WindowState = FormWindowState.Normal;
+
+            // DDTV.Visible = false;
         }
 
         /// <summary>
@@ -1325,6 +1374,7 @@ namespace DD监控室
         /// <param name="time"></param>
         private void BackMessage(string 标题, string Text, int time)
         {
+            DDTV.Visible = true;
             DDTV.ShowBalloonTip(time, Text, 标题, ToolTipIcon.Info);
         }
 
@@ -1348,21 +1398,60 @@ namespace DD监控室
         {
 
         }
-        private void DloFile(string RoomId, string path)
+        private string DloFile(string RoomId, string path)
         {
-            MMPU.HttpDownloadFile(getUriSteam.GetTrueUrl(RoomId), path);
+            return MMPU.HttpDownloadFile(getUriSteam.GetTrueUrl(RoomId), path);
+
+
+
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            string time = DateTime.Now.ToString("yyyyMMddHHmmss");
+            MessageBox.Show("录制功能仅限于学习交流，请勿用于商业以及其他版权方不允许的领域", "声明");
+            string time = "";
 
             Thread T1 = new Thread(new ThreadStart(delegate
             {
-                string 标题 = getUriSteam.GetUrlTitle(返回选择的房间真实房间号(indexRoom), "bilibili").Replace(@"/","").Replace(@"\","");
-                BackMessage("录制文件为: " + "./ tmp / " + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + "_" + time + ".flv", "开始录制", 3000);
-                DloFile(返回选择的房间真实房间号(indexRoom), "./tmp/" + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + "_" + time + ".flv");
-                BackMessage("录制文件为: " + "./ tmp / " + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + "_" + time + ".flv", "结束录制", 3000);
+
+                try
+                {
+                    Thread T2 = new Thread(new ThreadStart(delegate
+                    {
+                        string 标题 = getUriSteam.GetUrlTitle(返回选择的房间真实房间号(indexRoom), "bilibili").Replace(@"/", "").Replace(@"\", "");
+                        BackMessage("录制文件为: " + "./ tmp / " + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + ".flv", "开始录制", 3000);
+                        int tt2 = 0;
+                        while (true)
+                        {
+                            try
+                            {
+                                time = DateTime.Now.ToString("yyyyMMddHHmmss");
+                                if (DloFile(返回选择的房间真实房间号(indexRoom), "./tmp/" + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + "_" + time + ".flv") != "0")
+                                {
+                                    tt2 = 0;
+                                }
+                            }
+                            catch (Exception)
+                            {
+                            }
+                            tt2++;
+                            if (tt2 >= 6)
+                            {
+                                break;
+                            }
+                            Thread.Sleep(10000);
+                        }
+                        BackMessage("目标流返回的数据已经接受完毕，该提示一般是录制结束的提示，但是有时候会出现因为网络/直播流错误而产生,录制文件为: " + "./ tmp / " + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + ".flv", "结束录制", 10000);
+                        return;
+                    }));
+                    T2.IsBackground = true;
+                    T2.Start();
+                }
+                catch (Exception)
+                {
+
+                }
+
             }));
             T1.IsBackground = true;
             T1.Start();
@@ -1385,9 +1474,9 @@ namespace DD监控室
                     {
                         Roomlist[i].VideoStatus = true;
                     }
-
-                    UpdateRoomList();
                     SaveRoomInfo();
+                    UpdateRoomList(false);
+
                     return;
                 }
             }
@@ -1422,19 +1511,28 @@ namespace DD监控室
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            try
+            退出(e);
+        }
+        private void 退出(FormClosingEventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("是否确认退出程序关闭所有DD窗口？", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dr == DialogResult.OK)
             {
                 MMPU.DelFile("./debug.log");
+                // 关闭所有的线程
+                //this.Dispose();
+                //this.Close();
+                Environment.Exit(0);//结束当前进程
             }
-            catch (Exception)
+            else
             {
-
+                e.Cancel = true;
             }
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
-            if(button13.Text== "开始录制")
+            if (button13.Text == "开始录制")
             {
                 BackMessage("正在建立YouTube下载任务....请稍候...........", "准备下载", 3000);
                 YtbDloB = true;
@@ -1446,12 +1544,20 @@ namespace DD监控室
                 button13.Text = "开始录制";
                 YtbDloB = false;
             }
-            
+
         }
         public void DloYTB(string roomId)
         {
-
-            string ASDASD = MMPU.get返回网页内容("https://www.youtube.com/channel/" + roomId + "/live");
+            string ASDASD = "";
+            try
+            {
+                ASDASD = MMPU.get返回网页内容("https://www.youtube.com/channel/" + roomId + "/live");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("YouTube连接失败或该频道不存在，请确认输入的是频道，频道号应为https://www.youtube.com/channel/xxxxxxxxxxxxxxxxxxxxxxx  这种格式的channel/后面部分");
+                return;
+            }
             try
             {
                 ASDASD = ASDASD.Replace("\\\"},\\\"playbackTracking\\\"", "㈨").Split('㈨')[0].Replace("\\\"hlsManifestUrl\\\":\\\"", "㈨").Split('㈨')[1].Replace("\",\\\"probeUrl\\\"", "㈨").Split('㈨')[0].Replace("\\", "");
@@ -1489,7 +1595,7 @@ namespace DD监控室
                     }
                     catch (Exception)
                     {
-                        if(S!=0)
+                        if (S != 0)
                         {
                             MessageBox.Show("YouTube录制已结束");
                         }
@@ -1497,7 +1603,7 @@ namespace DD监控室
                         {
                             MessageBox.Show("该频道不存在，请确认输入的是频道，频道号应为https://www.youtube.com/channel/xxxxxxxxxxxxxxxxxxxxxxx  这种格式的channel/后面部分");
                         }
-                      
+
                         return;
                     }
                     /*
@@ -1506,7 +1612,7 @@ namespace DD监控室
                      * 10  3
                      */
                     string[] LS3 = ASDASD.Split('\n');
-                   List<string[]> LS2 = new List<string[]>();
+                    List<string[]> LS2 = new List<string[]>();
                     for (int i = 0; i < LS3.Length; i++)
                     {
                         if (LS3[i].Length != LS3[i].Replace("http", "").Length)
@@ -1531,18 +1637,27 @@ namespace DD监控室
                             BackMessage("YouTube下载已停止，下载文件在软件根目录下的    /tmp/" + roomId + "/    内", "已停止下载", 5000);
                             return;
                         }
-                        if (LS1.Count == 0)
+                        try
                         {
-                            LS1.Add(LS2[i][1]);
-                            MMPU.HttpDownloadFile(LS2[i][0], "./tmp/" + roomId + "/" + LS2[i][1] + ".ts");
-                            S++;
-                            //break;
+                            if (LS1.Count == 0)
+                            {
+                                LS1.Add(LS2[i][1]);
+                                MMPU.HttpDownloadFile(LS2[i][0], "./tmp/" + roomId + "/" + LS2[i][1] + ".ts");
+                                S++;
+                                //break;
+                            }
+                            else if (!LS1.Contains(LS2[i][1]))
+                            {
+                                LS1.Add(LS2[i][1]);
+                                MMPU.HttpDownloadFile(LS2[i][0], "./tmp/" + roomId + "/" + LS2[i][1] + ".ts");
+                                S++;
+                            }
                         }
-                        else if (!LS1.Contains(LS2[i][1]))
+                        catch (Exception)
                         {
-                            LS1.Add(LS2[i][1]);
-                            MMPU.HttpDownloadFile(LS2[i][0], "./tmp/" + roomId + "/" + LS2[i][1] + ".ts");
-                            S++;
+
+                            BackMessage("目标流返回的数据已经接受完毕，该提示一般是录制结束的提示，但是有时候会出现因为网络/直播流错误而产生", "录制结束", 10000);
+                            return;
                         }
                         if (S > 3 && !播放开始)
                         {
@@ -1553,7 +1668,7 @@ namespace DD监控室
                                 BackMessage("YouTube开始下载，下载文件在软件根目录下的    /tmp/" + roomId + "/    内", "开始下载", 5000);
                                 int S1 = 0;
 
-                                FileStream fs = new FileStream("./tmp/" + roomId + "/" + S1 + ".ts", FileMode.Append);//以Append方式打开文件
+                                FileStream fs = new FileStream("./tmp/" + roomId + "/" + LS1[0] + ".ts", FileMode.Append);//以Append方式打开文件
                                 BinaryWriter bw = new BinaryWriter(fs); //二进制写入流
                                 S1++;
                                 int k = 0;
@@ -1568,11 +1683,10 @@ namespace DD监控室
                                     }
                                     try
                                     {
-                                        if (MMPU.IsExistFile("./tmp/" + roomId + "/" + (LS1[S1]) + ".ts"))
+                                        if (MMPU.IsExistFile("./tmp/" + roomId + "/" + (LS1[S1 + 1]) + ".ts"))
                                         {
                                             FileStream fs1 = new FileStream("./tmp/" + roomId + "/" + LS1[S1] + ".ts", FileMode.Open);//以Append方式打开文件
                                             BinaryReader br1 = new BinaryReader(fs1);
-                                            int line = 0;
                                             byte[] Q2 = br1.ReadBytes((int)br1.BaseStream.Length);
                                             bw.Write(Q2, 0, Q2.Length); //写文件
 
@@ -1581,14 +1695,14 @@ namespace DD监控室
                                             MMPU.DelFile("./tmp/" + roomId + "/" + LS1[S1] + ".ts");
                                             S1++;
                                         }
-                                        else
-                                        {
-                                            if (MMPU.IsExistFile("./tmp/" + roomId + "/" + (LS1[S1] + 1) + ".ts"))
-                                            {
-                                                S1++;
-                                            }
-                                            
-                                        }
+                                        //else
+                                        //{
+                                        //    if (MMPU.IsExistFile("./tmp/" + roomId + "/" + (LS1[S1] + 1) + ".ts"))
+                                        //    {
+                                        //        S1++;
+                                        //    }
+
+                                        //}
                                     }
                                     catch (Exception)
                                     {
@@ -1602,22 +1716,49 @@ namespace DD监控室
 
                     }
                 }
-                    
+
             }));
             T1.IsBackground = true;
             T1.Start();
         }
 
-        private void checkBox1_CheckedChanged_1(object sender, EventArgs e)
+        private void button14_Click(object sender, EventArgs e)
         {
-            if(checkBox1.Checked)
+            //BackMessage("阿删掉测", "ASDSADSADSADSADAS", 0);
+
+            //   BackMessage("123",  " 开始直播了", 5000);
+            //return;
+            //BackMessage("目标流返回的数据已经接受完毕，该提示一般是录制结束的提示，但是有时候会出现因为网络/直播流错误而产生", "录制结束", 3000);
+            if (MessageBox.Show("制作:某米\n\n本软件所有功能仅限于学习交流，请勿用于商业以及其他版权方不允许的领域\n\n本软件基于GNU General Public License v3.0开源，于GitHub免费发布，点击确定的地址跳转到GitHub项目界面", "关于本软件", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                this.MinimumSize = new Size(520, 440);
+                System.Diagnostics.Process.Start("https://github.com/CHKZL/DDTV");
             }
             else
             {
-                this.MaximumSize = new Size(520, 384);
             }
+        }
+
+        private void 显示主界面ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Show();
+            //this.Visible = true;
+            this.WindowState = FormWindowState.Normal; ;
+            this.ShowInTaskbar = true;
+
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void DDTV_BalloonTipShown(object sender, EventArgs e)
+        {
+
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }
