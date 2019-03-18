@@ -1416,36 +1416,31 @@ namespace DD监控室
 
                 try
                 {
-                    Thread T2 = new Thread(new ThreadStart(delegate
+                    string 标题 = getUriSteam.GetUrlTitle(返回选择的房间真实房间号(indexRoom), "bilibili").Replace(@"/", "").Replace(@"\", "");
+                    BackMessage("录制文件为: " + "./ tmp / " + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + ".flv", "开始录制", 3000);
+                    int tt2 = 0;
+                    while (true)
                     {
-                        string 标题 = getUriSteam.GetUrlTitle(返回选择的房间真实房间号(indexRoom), "bilibili").Replace(@"/", "").Replace(@"\", "");
-                        BackMessage("录制文件为: " + "./ tmp / " + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + ".flv", "开始录制", 3000);
-                        int tt2 = 0;
-                        while (true)
+                        try
                         {
-                            try
+                            time = DateTime.Now.ToString("yyyyMMddHHmmss");
+                            if (DloFile(getUriSteam.GetRoomid(返回选择的房间真实房间号(indexRoom)), "./tmp/" + getUriSteam.GetRoomid(返回选择的房间真实房间号(indexRoom)) + "_" + 标题 + "_" + time + ".flv") != "0")
                             {
-                                time = DateTime.Now.ToString("yyyyMMddHHmmss");
-                                if (DloFile(返回选择的房间真实房间号(indexRoom), "./tmp/" + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + "_" + time + ".flv") != "0")
-                                {
-                                    tt2 = 0;
-                                }
+                                tt2 = 0;
                             }
-                            catch (Exception)
-                            {
-                            }
-                            tt2++;
-                            if (tt2 >= 6)
-                            {
-                                break;
-                            }
-                            Thread.Sleep(10000);
                         }
-                        BackMessage("目标流返回的数据已经接受完毕，该提示一般是录制结束的提示，但是有时候会出现因为网络/直播流错误而产生,录制文件为: " + "./ tmp / " + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + ".flv", "结束录制", 10000);
-                        return;
-                    }));
-                    T2.IsBackground = true;
-                    T2.Start();
+                        catch (Exception)
+                        {
+                        }
+                        tt2++;
+                        if (tt2 >= 6)
+                        {
+                            break;
+                        }
+                        Thread.Sleep(10000);
+                    }
+                    BackMessage("目标流返回的数据已经接受完毕，该提示一般是录制结束的提示，但是有时候会出现因为网络/直播流错误而产生,录制文件为: " + "./ tmp / " + 返回选择的房间真实房间号(indexRoom) + "_" + 标题 + ".flv", "结束录制", 10000);
+                    return;
                 }
                 catch (Exception)
                 {
