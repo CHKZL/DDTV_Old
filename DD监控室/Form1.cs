@@ -634,6 +634,7 @@ namespace DD监控室
             Form F1 = sender as Form;
             int 标号 = int.Parse(F1.Name);
             VLC[标号].Stop();
+            VLC[标号].Dispose();
             liveIndex.Items.Remove(标号.ToString());
             new Thread(new ThreadStart(delegate
             {
@@ -849,6 +850,7 @@ namespace DD监控室
             List<string> cs = new List<string>() { "0" };
             MMPU.DMlist.Add(cs);
             FM[窗口编号].Close();
+            VLC[窗口编号].Dispose();
             Thread.Sleep(1000);
             NewLive(RoomId);
         }
