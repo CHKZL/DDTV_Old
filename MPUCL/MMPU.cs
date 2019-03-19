@@ -175,11 +175,11 @@ namespace MPUCL
         public static void InitializeRoomList()
         {
             var rlc = new Room.RoomBox();
-            rlc = JsonConvert.DeserializeObject<Room.RoomBox>(ReadFile(RoomConfigFile));
-            Roomlist = rlc?.data;
+            rlc = JsonConvert.DeserializeObject<Room.RoomBox>(ReadConfigFile(RoomConfigFile));
+            RoomConfigList = rlc?.data;
 
-            if (Roomlist == null)
-                Roomlist = new List<Room.RoomCadr>();
+            if (RoomConfigList == null)
+                RoomConfigList = new List<Room.RoomCadr>();
         }
 
         public string generateUniqueId()

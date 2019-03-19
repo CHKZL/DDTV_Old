@@ -1,20 +1,8 @@
-﻿using System;
+﻿using MPUCL;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using CefSharp.Wpf;
-using MPUCL;
 
 
 namespace DmWin
@@ -39,26 +27,26 @@ namespace DmWin
 
                 Thread T1 = new Thread(new ThreadStart(delegate
                 {
-                    持续读取弹幕放入弹幕list(getUriSteam.GetRoomid(A), Fid);
+                    ReadDanmakuList(getUriSteam.GetRoomid(A), Fid);
                     while (true)
                     {
-                        this.Dispatcher.Invoke(
-                 new Action(
-                   delegate
-                   {
-                       Browser.Width = this.Width;
-                       Browser.Height = this.Height;
-                   }
-                   ));
+                        Dispatcher.Invoke(
+                            new Action(
+                                delegate
+                                {
+                                    Browser.Width = Width;
+                                    Browser.Height = Height;
+                                }
+                            )
+                        );
 
                         Thread.Sleep(500);
                     }
                 }));
                 T1.IsBackground = true;
                 T1.Start();
-                //string asdsad = @"Y:\DDTV\rst\1.0.1.6\index.html?Fid=" + Fid;
-                string asdsad = AppDomain.CurrentDomain.BaseDirectory + @"index.html?Fid="+ Fid;
-                Browser.Address = (asdsad);
+                string path = AppDomain.CurrentDomain.BaseDirectory + @"index.html?Fid="+ Fid;
+                Browser.Address = path;
                 Browser.Margin = new Thickness(0, 0, 0, 0);
                 CefSharp.CefSharpSettings.LegacyJavascriptBindingEnabled = true;
                 Browser.RegisterJsObject("boud", new JsEvent(), new CefSharp.BindingOptions() { CamelCaseJavascriptNames = false });
@@ -77,10 +65,11 @@ namespace DmWin
         {
             //if (KA)
             {
-                Browser.Width = this.Width;
-                Browser.Height = this.Height;
+                Browser.Width = Width;
+                Browser.Height = Height;
             }
         }
+
         public class JsEvent
         {
             public string js { get; set; }
@@ -100,19 +89,18 @@ namespace DmWin
             }
         }
 
-        public void 持续读取弹幕放入弹幕list(string RoomId,int Fid)
+        public void ReadDanmakuList(string RoomId,int Fid)
         {
             Thread T1 = new Thread(new ThreadStart(delegate {
                 while (true)
                 {
                     try
                     {
-                        MMPU.getbalabala(RoomId, Fid);
+                        MMPU.getDanmaku(RoomId, Fid);
                     }
                     catch (Exception ex)
                     {
 
-                        //MessageBox.Show(ex.ToString());
                     }
                     Thread.Sleep(1500);
                 }

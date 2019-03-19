@@ -166,36 +166,6 @@ namespace DD监控室
             VLCAPI.libvlc_media_player_stop(libvlc_media_player_);
         }
 
-        [Obsolete("use VLCPlayer.PlayTime")]
-        public double GetPlayTime()
-        {
-            return VLCAPI.libvlc_media_player_get_time(libvlc_media_player_) / 1000.0;
-        }
-
-        [Obsolete("use VLCPlayer.PlayTime")]
-        public void SetPlayTime(double seekTime)
-        {
-            VLCAPI.libvlc_media_player_set_time(libvlc_media_player_, (Int64)(seekTime * 1000));
-        }
-
-        [Obsolete("use VLCPlayer.Volume")]
-        public int GetVolume()
-        {
-             return VLCAPI.libvlc_audio_get_volume(libvlc_media_player_);
-        }
-
-        [Obsolete("use VLCPlayer.Volume")]
-        public void SetVolume(int volume)
-        {
-            VLCAPI.libvlc_audio_set_volume(libvlc_media_player_, volume);
-        }
-
-        [Obsolete("use VLCPlayer.Fullscreen")]
-        public void SetFullScreen(bool istrue)
-        {
-             VLCAPI.libvlc_set_fullscreen(libvlc_media_player_, istrue ? 1 : 0);
-        }
-
         public int Snapshot(string savePath, uint width = 0, uint height = 0)
         {
             IntPtr pathPtr = VLCUtil.StringToPtr(savePath);
