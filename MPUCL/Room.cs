@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MPUCL
 {
@@ -20,6 +17,9 @@ namespace MPUCL
             public string Types { get; set; }
             public bool status { get; set; }
             public bool VideoStatus { get; set; }
+
+            [JsonProperty(PropertyName = "Ty")]
+            private bool statusAlt1 { set { status = value; } }
         }
 
         /// <summary>
@@ -33,8 +33,6 @@ namespace MPUCL
             public string steam { get; set; }
             public bool status { get; set; }
             public bool Top { get; set; }
-
         }
-
     }
 }

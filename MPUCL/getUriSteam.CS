@@ -1,37 +1,33 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace MPUCL
 {
     public class getUriSteam
     {
-        public static int 流编号 = 0;
-        //检测是否在直播
-        public static string getBiliRoomId(string ID, string ty)
+        public static int StreamId = 0;
+        public static string getBiliRoomId(string ID, string type)
         {
-            //读取设置
             var originalRoomId = ID;
             string _flvUrl = "";
-            //准备查找下载地址
-            //查找真实房间号
             string _roomid = "";
-            switch (ty)
+            switch (type)
             {
                 case "bilibili":
                     _roomid = GetRoomid(ID);
                     break;
                 case "youtube":
+                    Regex reg = new Regex(@"\\""hlsManifestUrl\\"":\\""(.*?)(\\"",\\""probeUrl\\""|\\""},\\""playbackTracking\\"")");
                     try
                     {
-                        string ASDASD = MMPU.get返回网页内容("https://www.youtube.com/channel/UCcnoKv531otgPrd3NcR0mag/live");
-                        ASDASD = ASDASD.Replace("\\\"},\\\"playbackTracking\\\"", "㈨").Split('㈨')[0].Replace("\\\"hlsManifestUrl\\\":\\\"", "㈨").Split('㈨')[1].Replace("\",\\\"probeUrl\\\"", "㈨").Split('㈨')[0].Replace("\\", "");
-                        _roomid = MMPU.get返回网页内容(ASDASD);
+                        string pageSource = MMPU.GetUrlContent("https://www.youtube.com/channel/UCcnoKv531otgPrd3NcR0mag/live");
+                        string result = reg.Match(pageSource).Groups[1].Value;
+                        result = Regex.Unescape(result);
+                        _roomid = MMPU.GetUrlContent(result);
+                        // So, here we get a m3u8 file. Not so-called "Room Id".
                     }
                     catch (Exception)
                     {
@@ -45,7 +41,6 @@ namespace MPUCL
             {
                 return "该房间未在直播";
             }
-            //查找真实下载地址
             try
             {
                 _flvUrl = GetTrueUrl(_roomid);
@@ -56,46 +51,28 @@ namespace MPUCL
             }
             return _flvUrl;
         }
-        /// <summary>
-        /// 获取网页标题
-        /// </summary>
-        /// <param name="ID">房间号</param>
-        /// <param name="来源">直播平台</param>
-        /// <returns></returns>
-        public static string GetUrlTitle(string ID, string 来源)
+
+        public static string GetUrlTitle(string ID, string source)
         {
-            int c = 0;
-            a:
             var roomWebPageUrl = "https://live.bilibili.com/" + ID;
-            switch (来源)
+            switch (source)
             {
                 case "bilibili":
-                    {
-                        roomWebPageUrl = "https://live.bilibili.com/" + ID;
-                        break;
-                    }
+                    roomWebPageUrl = "https://live.bilibili.com/" + ID;
+                    break;
                 case "youtube":
-                    {
-                        roomWebPageUrl = "https://www.youtube.com/channel/" + ID + "/live";
-                        break;
-                    }
+                    roomWebPageUrl = "https://www.youtube.com/channel/" + ID + "/live";
+                    break;
                 default:
-                    {
-                        if(c==0)
-                        {
-                            c++;
-                            goto a;
-                        }
-                        return "获取网页标题失败";
-                    }
-
+                     return "获取网页标题失败";
             }
+
             var wc = new WebClient();
             wc.Encoding = Encoding.UTF8;
             wc.Headers.Add("Accept: text/html");
             wc.Headers.Add("User-Agent: " + Ver.UA);
             wc.Headers.Add("Accept-Language: zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4");
-            //发送HTTP请求获取真实房间号
+            
             string roomHtml;
             try
             {
@@ -103,63 +80,31 @@ namespace MPUCL
             }
             catch (Exception)
             {
-                if (c == 0)
-                {
-                    c++;
-                    goto a;
-                }
                 return "获取网页标题失败";
             }
-            string 标题 = "";
-            switch (来源)
+
+            string title = "";
+            Regex reg1 = new Regex(@"""title"":""(.*?)""");
+            Regex reg2 = new Regex(@"<title (.*?)>(.*?)</title>");
+            switch (source)
             {
                 case "bilibili":
-                    {
-                        try
-                        {
-                            标题 = roomHtml.Replace("</title>", "≯").Split('≯')[0].Replace("<title", "≯").Split('≯')[1].Replace("\">", "≯").Split('≯')[1];
-                        }
-                        catch (Exception)
-                        {
-                            if (c == 0)
-                            {
-                                c++;
-                                goto a;
-                            }
-                            return "获取网页标题失败";
-                        }
-
-                        break;
-                    }
+                    string result = reg2.Match(roomHtml).Groups[2].Value;
+                    if(result == "哔哩哔哩直播，二次元弹幕直播平台")
+                        result = reg1.Match(roomHtml).Groups[1].Value;
+                    title = result;
+                    break;
                 case "youtube":
-                    {
-
-                        标题 = roomHtml.Replace("\"title\":\"", "㈨").Split('㈨')[1].Replace("\",", "㈨").Split('㈨')[0].Replace("\\", "");
-                        break;
-                    }
+                    title = reg1.Match(roomHtml).Groups[1].Value;
+                    break;
                 default:
-                    {
-                        if (c == 0)
-                        {
-                            c++;
-                            goto a;
-                        }
-                        return "获取网页标题失败";
-                    }
-
+                    return "获取网页标题失败";
             }
 
-            try
-            {
-                return 标题.Replace("- 哔哩哔哩直播，二次元弹幕直播平台", "");
-            }
-            catch (Exception)
-            {
-
-                return ID;
-            }
+            return title.Replace(" - 哔哩哔哩直播，二次元弹幕直播平台", "");
 
         }
+
         public static string GetRoomid(string ID)
         {
             var roomWebPageUrl = "https://api.live.bilibili.com/room/v1/Room/room_init?id=" + ID;
@@ -167,7 +112,7 @@ namespace MPUCL
             wc.Headers.Add("Accept: text/html");
             wc.Headers.Add("User-Agent: " + Ver.UA);
             wc.Headers.Add("Accept-Language: zh-CN,zh;q=0.8,en;q=0.6,ja;q=0.4");
-            //发送HTTP请求获取真实房间号
+
             string roomHtml;
             try
             {
@@ -178,7 +123,7 @@ namespace MPUCL
                 Console.WriteLine("直播初始化失败：" + e.Message);
                 return null;
             }
-            //从返回结果中提取真实房间号
+
             try
             {
                 var result = JObject.Parse(roomHtml);
@@ -207,7 +152,6 @@ namespace MPUCL
             }
             var apiUrl = "https://api.live.bilibili.com/room/v1/Room/playUrl?cid=" + roomid + "&otype=json&quality=0&platform=web";
 
-            //访问API获取结果
             var wc = new WebClient();
             wc.Headers.Add("Accept: */*");
             wc.Headers.Add("User-Agent: " + Ver.UA);
@@ -225,11 +169,10 @@ namespace MPUCL
                 throw;
             }
 
-            //解析结果
             try
             {
                 var jsonResult = JObject.Parse(resultString);
-                var trueUrl = jsonResult["data"]["durl"][流编号]["url"].ToString();
+                var trueUrl = jsonResult["data"]["durl"][StreamId]["url"].ToString();
                 Console.WriteLine("地址解析成功：" + trueUrl);
                 return trueUrl;
             }

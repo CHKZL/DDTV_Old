@@ -1,0 +1,37 @@
+接口改动:
+	DD播放器.VLCPlayer:
+		增加 IsInitlized 只读属性
+		增加 Version 只读属性
+		增加 PlayTime, Volume, Fullscreen 属性
+		移除 GetPlayTime, SetPlayTime, GetVolume, SetVolume, SetFullscreen 方法
+		移除 Version 方法
+		SnapShot 更名为 Snapshot
+		getPlayerState 更名为 GetPlayerState
+
+	MPUCL.MMPU:
+		增加 generateUniqueId 方法
+		移除 getMacAddress 方法
+		移除 DelFile 方法
+		移除 DelectDir 方法
+		移除 IsExistDirectory 方法
+		移除 IsExistFile 方法
+		移除 SaveFile 方法
+		get返回网页内容 更名为 GetUrlContent
+		bilibiliDlo 更名为 DownloadBilibili
+		ReadFile 更名为 ReadConfigFile
+		测试网络 更名为 PingTest
+		getbalabala 更名为 getDanmaku
+		Roomlist 更名为 RoomConfigList
+		RInfo 更名为 RoomInfo
+		房间列表刷新标志 更名为 IsRefreshed
+		弹幕开关 更名为 DanmakuEnabled
+		DMlist 类型改为 List<HashSet<string>>
+
+	MPUCL.Ver:
+		移除 WinVer 辅助类
+		增加 Version 属性
+
+	MPUCL.getUriSteam
+		流编号 更名为 StreamId
+
+by Asakusa Yakumo 03/20/19
