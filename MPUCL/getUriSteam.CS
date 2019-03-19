@@ -64,6 +64,8 @@ namespace MPUCL
         /// <returns></returns>
         public static string GetUrlTitle(string ID, string 来源)
         {
+            int c = 0;
+            a:
             var roomWebPageUrl = "https://live.bilibili.com/" + ID;
             switch (来源)
             {
@@ -79,6 +81,11 @@ namespace MPUCL
                     }
                 default:
                     {
+                        if(c==0)
+                        {
+                            c++;
+                            goto a;
+                        }
                         return "获取网页标题失败";
                     }
 
@@ -96,6 +103,11 @@ namespace MPUCL
             }
             catch (Exception)
             {
+                if (c == 0)
+                {
+                    c++;
+                    goto a;
+                }
                 return "获取网页标题失败";
             }
             string 标题 = "";
@@ -109,6 +121,11 @@ namespace MPUCL
                         }
                         catch (Exception)
                         {
+                            if (c == 0)
+                            {
+                                c++;
+                                goto a;
+                            }
                             return "获取网页标题失败";
                         }
 
@@ -122,6 +139,11 @@ namespace MPUCL
                     }
                 default:
                     {
+                        if (c == 0)
+                        {
+                            c++;
+                            goto a;
+                        }
                         return "获取网页标题失败";
                     }
 

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,10 @@ namespace MPUCL
     {
         public static string RoomConfigFile = "./RoomListConfig.json";
         public static List<List<string>> DMlist = new List<List<string>>();
+        public static List<Room.RoomCadr> Roomlist = new List<Room.RoomCadr>();//房间信息1List
+        public static List<Room.RoomInfo> RInfo = new List<Room.RoomInfo>();//房间信息2List
 
-
+        public static bool 房间列表刷新标志 = false;
         public static List<int> DmNum = new List<int>();
         public static bool 弹幕开关 = false;
         public class danmu
@@ -311,6 +314,123 @@ namespace MPUCL
 
             //BackMessage("目标流返回的数据已经接受完毕，该提示一般是录制结束的提示，但是有时候会出现因为网络/直播流错误而产生,录像文件:" + "./tmp/" + Roomlist[i].RoomNumber + "_" + 标题 + ".flv", Roomlist[i].Name + " 结束录制", 10000);
         }
-       
+        /// <summary>
+        /// 初始化房间列表
+        /// </summary>
+        public static void InitializeRoomList()
+        {
+            JObject jo = (JObject)JsonConvert.DeserializeObject(MMPU.ReadFile(MMPU.RoomConfigFile));
+            try
+            {
+                while (true)
+                {
+                    int a1015 = 0, a1014 = 0;
+                    try
+                    {
+                        Roomlist = new List<Room.RoomCadr>();
+                        //1.0.1.5兼容
+                        for (int i = 0; ; i++)
+                        {
+
+
+                            if (jo["data"][i]["Types"].ToString() != "youtube")
+                            {
+                                Roomlist.Add(new Room.RoomCadr() { Name = jo["data"][i]["Name"].ToString(), RoomNumber = jo["data"][i]["RoomNumber"].ToString(), status = false, Types = jo["data"][i]["Types"].ToString(), VideoStatus = ((jo["data"][i]["VideoStatus"].ToString() == "True") ? true : false) });
+                            }
+
+                            a1015++;
+
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        try
+                        {
+                            //1.0.1.4兼容
+                            if (a1015 == 0)
+                            {
+
+                                for (int i = 0; ; i++)
+                                {
+
+                                    Roomlist.Add(new Room.RoomCadr() { Name = jo["data"][i]["Name"].ToString(), RoomNumber = jo["data"][i]["RoomNumber"].ToString(), status = false, Types = jo["data"][i]["Types"].ToString() });
+
+
+                                    a1014++;
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            //1.0.1.3兼容
+                            if (a1014 == 0)
+                            {
+
+                                for (int i = 0; ; i++)
+                                {
+                                    Roomlist.Add(new Room.RoomCadr() { Name = jo["data"][i]["Name"].ToString(), RoomNumber = jo["data"][i]["RoomNumber"].ToString(), status = ((jo["data"][i]["Ty"].ToString() == "True") ? true : false), Types = "bilibili" });
+                                }
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string A = ex.ToString();
+            }
+
+        }
+        /// <summary> 
+        /// 获取MAC地址(返回第一个物理以太网卡的mac地址) //用于区分设备统计使用人数，数据将匿名提交，不会用作其他通途
+        /// </summary> 
+        /// <returns>成功返回mac地址，失败返回null</returns> 
+        public string getMacAddress()
+        {
+            string macAddress = null;
+            try
+            {
+                NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
+                foreach (NetworkInterface adapter in nics)
+                {
+                    if (adapter.NetworkInterfaceType.ToString().Equals("Ethernet")) //是以太网卡
+                    {
+                        string fRegistryKey = "SYSTEM\\CurrentControlSet\\Control\\Network\\{4D36E972-E325-11CE-BFC1-08002BE10318}\\" + adapter.Id + "\\Connection";
+                        RegistryKey rk = Registry.LocalMachine.OpenSubKey(fRegistryKey, false);
+                        if (rk != null)
+                        {
+                            // 区分 PnpInstanceID     
+                            // 如果前面有 PCI 就是本机的真实网卡    
+                            // MediaSubType 为 01 则是常见网卡，02为无线网卡。    
+                            string fPnpInstanceID = rk.GetValue("PnpInstanceID", "").ToString();
+                            int fMediaSubType = Convert.ToInt32(rk.GetValue("MediaSubType", 0));
+                            if (fPnpInstanceID.Length > 3 && fPnpInstanceID.Substring(0, 3) == "PCI") //是物理网卡
+                            {
+                                macAddress = adapter.GetPhysicalAddress().ToString();
+                                break;
+                            }
+                            else if (fMediaSubType == 1) //虚拟网卡
+                                continue;
+                            else if (fMediaSubType == 2) //无线网卡(上面判断Ethernet时已经排除了)
+                                continue;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                macAddress = null;
+            }
+            return macAddress;
+        }
+
     }
 }

@@ -158,7 +158,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 12);
             this.label10.TabIndex = 29;
-            this.label10.Text = "1.0.1.7a";
+            this.label10.Text = "1.0.1.7c";
             // 
             // groupBox5
             // 
@@ -231,9 +231,9 @@
             this.DMNF.AutoSize = true;
             this.DMNF.Location = new System.Drawing.Point(10, 280);
             this.DMNF.Name = "DMNF";
-            this.DMNF.Size = new System.Drawing.Size(336, 16);
+            this.DMNF.Size = new System.Drawing.Size(456, 16);
             this.DMNF.TabIndex = 30;
-            this.DMNF.Text = "打开弹幕(测试功能!,高硬件需求)不能和锁定窗口顶层共用";
+            this.DMNF.Text = "打开弹幕(测试功能!,有硬件需求)不能和锁定窗口顶层共用，需先勾选再打开视频";
             this.DMNF.UseVisualStyleBackColor = true;
             this.DMNF.CheckedChanged += new System.EventHandler(this.DMNF_CheckedChanged);
             // 
