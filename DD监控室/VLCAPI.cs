@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.ExceptionServices;
 
 namespace DD监控室
 {
@@ -178,5 +173,8 @@ namespace DD监控室
         [SuppressUnmanagedCodeSecurity]
         public static extern void libvlc_set_fullscreen(IntPtr libvlc_media_player, int isFullScreen);
 
+        [DllImport("libvlc", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [SuppressUnmanagedCodeSecurity]
+        public static extern int libvlc_get_fullscreen(IntPtr libvlc_media_player);
     }
 }
