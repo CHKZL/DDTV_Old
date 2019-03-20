@@ -34,4 +34,7 @@
 	MPUCL.getUriSteam
 		流编号 更名为 StreamId
 
+	DmWin.Window1
+		持续读取弹幕放入弹幕list 更名为 ReadDanmakuList
+
 by Asakusa Yakumo 03/20/19

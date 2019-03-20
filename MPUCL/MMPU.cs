@@ -65,7 +65,6 @@ namespace MPUCL
 
                 Ping objPingSender = new Ping();
                 PingReply objPinReply = objPingSender.Send(Addr, intTimeout, buffer, objPinOptions);
-                string strInfo = objPinReply.Status.ToString();
                 if (objPinReply.Status == IPStatus.Success)
                 {
                     return true;
@@ -73,7 +72,6 @@ namespace MPUCL
                 else
                 {
                     objPinReply = objPingSender.Send("223.6.6.6", intTimeout, buffer, objPinOptions);
-                    strInfo = objPinReply.Status.ToString();
                     return objPinReply.Status == IPStatus.Success;
                 }
             }
