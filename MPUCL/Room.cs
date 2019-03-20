@@ -14,9 +14,9 @@ namespace MPUCL
         {
             public string Name { get; set; }
             public string RoomNumber { get; set; }
-            public string Types { get; set; }
-            public bool status { get; set; }
-            public bool VideoStatus { get; set; }
+            public string Types { get; set; } = "bilibili";
+            public bool status { get; set; } = false;
+            public bool VideoStatus { get; set; } = false;
 
             [JsonProperty(PropertyName = "Ty")]
             private bool statusAlt1 { set { status = value; } }
