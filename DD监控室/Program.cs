@@ -13,9 +13,10 @@ namespace DD监控室
         /// </summary>
         [STAThread]
         static void Main()
-       {
+        {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Main());
             Application.Run(new Main());
         }
     }

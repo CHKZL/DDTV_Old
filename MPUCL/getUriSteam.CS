@@ -11,7 +11,7 @@ namespace MPUCL
 {
     public class getUriSteam
     {
-        public static int 流编号 = 0;
+        public static int StreamId = 0;
         //检测是否在直播
         public static string getBiliRoomId(string ID, string ty)
         {
@@ -29,9 +29,9 @@ namespace MPUCL
                 case "youtube":
                     try
                     {
-                        string ASDASD = MMPU.get返回网页内容("https://www.youtube.com/channel/UCcnoKv531otgPrd3NcR0mag/live");
+                        string ASDASD = MMPU.GetUrlContent("https://www.youtube.com/channel/UCcnoKv531otgPrd3NcR0mag/live");
                         ASDASD = ASDASD.Replace("\\\"},\\\"playbackTracking\\\"", "㈨").Split('㈨')[0].Replace("\\\"hlsManifestUrl\\\":\\\"", "㈨").Split('㈨')[1].Replace("\",\\\"probeUrl\\\"", "㈨").Split('㈨')[0].Replace("\\", "");
-                        _roomid = MMPU.get返回网页内容(ASDASD);
+                        _roomid = MMPU.GetUrlContent(ASDASD);
                     }
                     catch (Exception)
                     {
@@ -60,14 +60,14 @@ namespace MPUCL
         /// 获取网页标题
         /// </summary>
         /// <param name="ID">房间号</param>
-        /// <param name="来源">直播平台</param>
+        /// <param name="source">直播平台</param>
         /// <returns></returns>
-        public static string GetUrlTitle(string ID, string 来源)
+        public static string GetUrlTitle(string ID, string source)
         {
             int c = 0;
             a:
             var roomWebPageUrl = "https://live.bilibili.com/" + ID;
-            switch (来源)
+            switch (source)
             {
                 case "bilibili":
                     {
@@ -111,7 +111,7 @@ namespace MPUCL
                 return "获取网页标题失败";
             }
             string 标题 = "";
-            switch (来源)
+            switch (source)
             {
                 case "bilibili":
                     {
@@ -229,7 +229,7 @@ namespace MPUCL
             try
             {
                 var jsonResult = JObject.Parse(resultString);
-                var trueUrl = jsonResult["data"]["durl"][流编号]["url"].ToString();
+                var trueUrl = jsonResult["data"]["durl"][StreamId]["url"].ToString();
                 Console.WriteLine("地址解析成功：" + trueUrl);
                 return trueUrl;
             }

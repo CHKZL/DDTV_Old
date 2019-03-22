@@ -24,14 +24,16 @@ namespace DmWin
     /// </summary>
     public partial class Window1 : Window
     {
-        
+        string path = "";
         //bool KA = false;
         public Window1(string A,int Fid)
         {
-           
             InitializeComponent();
+           
             if (A != "0")
             {
+                //path = @"Y:\DDTV\rst\1.0.1.7c\index.html?Fid=" + Fid;
+                path= AppDomain.CurrentDomain.BaseDirectory + @"index.html?Fid=" + Fid;
                 List<string> cs = new List<string>();
                 MMPU.DMlist.Add(cs);
                 MMPU.DmNum.Add(0);
@@ -39,15 +41,15 @@ namespace DmWin
 
                 Thread T1 = new Thread(new ThreadStart(delegate
                 {
-                    持续读取弹幕放入弹幕list(getUriSteam.GetRoomid(A), Fid);
+                    ReadDanmakuList(getUriSteam.GetRoomid(A), Fid);
                     while (true)
                     {
                         this.Dispatcher.Invoke(
                  new Action(
                    delegate
                    {
-                       Browser.Width = this.Width;
-                       Browser.Height = this.Height;
+                       Browser.Width = Width;
+                       Browser.Height = Height;
                    }
                    ));
 
@@ -57,8 +59,8 @@ namespace DmWin
                 T1.IsBackground = true;
                 T1.Start();
                 //string asdsad = @"Y:\DDTV\rst\1.0.1.6\index.html?Fid=" + Fid;
-                string asdsad = AppDomain.CurrentDomain.BaseDirectory + @"index.html?Fid="+ Fid;
-                Browser.Address = (asdsad);
+                
+                Browser.Address = (path);
                 Browser.Margin = new Thickness(0, 0, 0, 0);
                 CefSharp.CefSharpSettings.LegacyJavascriptBindingEnabled = true;
                 Browser.RegisterJsObject("boud", new JsEvent(), new CefSharp.BindingOptions() { CamelCaseJavascriptNames = false });
@@ -73,14 +75,7 @@ namespace DmWin
            // KA = false;
         }
 
-        private void MainWindow_Resize(object sender, EventArgs e)
-        {
-            //if (KA)
-            {
-                Browser.Width = this.Width;
-                Browser.Height = this.Height;
-            }
-        }
+
         public class JsEvent
         {
             public string js { get; set; }
@@ -91,25 +86,25 @@ namespace DmWin
                 {
                     string DM = MMPU.DMlist[RA][MMPU.DmNum[RA]];
                     MMPU.DmNum[RA]++;
-                    js = DM;
+                    js = DM.Split('㈨')[1];
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     js = "0";
                 }
             }
         }
 
-        public void 持续读取弹幕放入弹幕list(string RoomId,int Fid)
+        public void ReadDanmakuList(string RoomId,int Fid)
         {
             Thread T1 = new Thread(new ThreadStart(delegate {
                 while (true)
                 {
                     try
                     {
-                        MMPU.getbalabala(RoomId, Fid);
+                        MMPU.getDanmaku(RoomId, Fid);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
 
                         //MessageBox.Show(ex.ToString());
@@ -119,6 +114,19 @@ namespace DmWin
             }));
             T1.IsBackground = true;
             T1.Start();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            //if (KA)
+            {
+                Browser.Width = Width;
+                Browser.Height = Height;
+                //Browser.Address = (asdsad);
+                //Browser.Margin = new Thickness(0, 0, 0, 0);
+                //CefSharp.CefSharpSettings.LegacyJavascriptBindingEnabled = true;
+                //Browser.RegisterJsObject("boud", new JsEvent(), new CefSharp.BindingOptions() { CamelCaseJavascriptNames = false });
+            }
         }
     }
 }

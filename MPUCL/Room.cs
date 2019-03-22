@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,12 @@ namespace MPUCL
         {
             public string Name { get; set; }
             public string RoomNumber { get; set; }
-            public string Types { get; set; }
-            public bool status { get; set; }
-            public bool VideoStatus { get; set; }
+            public string Types { get; set; } = "bilibili";
+            public bool status { get; set; } =false;
+            public bool VideoStatus { get; set; } = false;
+
+            [JsonProperty(PropertyName = "Ty")]
+            private bool statusAlt1 { set { status = value;} }
         }
 
         /// <summary>
@@ -36,5 +40,15 @@ namespace MPUCL
 
         }
 
+        public class RecordVideo
+        {
+            public string guid { get; set; }
+            public string RoomID { get; set; }
+            public string Name { get; set; }
+            public bool Status { get; set; }
+            public string File { get; set; }
+            public string StartTime { get; set; } = "";
+            public string EndTime { get; set; } = "";
+        }
     }
 }

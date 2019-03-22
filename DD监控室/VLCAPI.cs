@@ -178,5 +178,8 @@ namespace DD监控室
         [SuppressUnmanagedCodeSecurity]
         public static extern void libvlc_set_fullscreen(IntPtr libvlc_media_player, int isFullScreen);
 
+        [DllImport("libvlc", CallingConvention = CallingConvention.Cdecl, ExactSpelling = true)]
+        [SuppressUnmanagedCodeSecurity]
+        public static extern int libvlc_get_fullscreen(IntPtr libvlc_media_player);
     }
 }
