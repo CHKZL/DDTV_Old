@@ -32,8 +32,8 @@ namespace DmWin
            
             if (A != "0")
             {
-                //path = @"Y:\DDTV\rst\1.0.1.7c\index.html?Fid=" + Fid;
-                path= AppDomain.CurrentDomain.BaseDirectory + @"index.html?Fid=" + Fid;
+                path = @"F:\DDTV\rst\1.0.2.0\index.html?Fid=" + Fid;
+               // path= AppDomain.CurrentDomain.BaseDirectory + @"index.html?Fid=" + Fid;
                 List<string> cs = new List<string>();
                 MMPU.DMlist.Add(cs);
                 MMPU.DmNum.Add(0);
