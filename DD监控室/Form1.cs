@@ -91,6 +91,10 @@ namespace DD监控室
                                     return;
                                 }
                             }
+                            else
+                            {
+                                return;
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -1657,7 +1661,9 @@ namespace DD监控室
             //   BackMessage("123",  " 开始直播了", 5000);
             //return;
             //BackMessage("目标流返回的数据已经接受完毕，该提示一般是录制结束的提示，但是有时候会出现因为网络/直播流错误而产生", "录制结束", 3000);
-            if (MessageBox.Show("制作:某米\n\n" +
+
+
+            DialogResult dr = MessageBox.Show("制作:某米\n\n" +
                 "本软件所有功能仅限于学习交流，请勿用于商业以及其他版权方不允许的领域\n\n" +
                 "本软件基于GNU General Public License v3.0开源，于GitHub免费发布，点击确定的地址跳转到GitHub项目界面\n\n" +
                 "注意:\n" +
@@ -1665,8 +1671,8 @@ namespace DD监控室
                 "2.弹幕显示超出画面边框是由于桌面分辨率不是100%引起的，这需要高DPI适配，个人精力不足....\n" +
                 "3.在更新软件的时候请备份好RoomListConfig.json文件，该文件是监控房间配置文件\n" +
                 "4.如果需要大量修改房间名称之类的，可以直接打开RoomListConfig.json进行修改，修改前请备份" +
-                "\n" +
-                "", "关于本软件", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.OK)
+                "\n", "退出", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if(dr == DialogResult.OK)
             {
                 System.Diagnostics.Process.Start("https://github.com/CHKZL/DDTV");
             }
