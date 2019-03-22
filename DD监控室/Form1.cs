@@ -45,7 +45,6 @@ namespace DD监控室
         private void Form1_Load(object sender, EventArgs e)
         {
 
-
             MMPU.InitializeRoomConfigFile();
             CheckVersion();
             egg();
