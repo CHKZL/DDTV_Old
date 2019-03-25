@@ -7,7 +7,7 @@ DD导播中心
 估摸着可以给DD国添砖加瓦，就想了一下需求，DUANG~就变出来了。
 
 ## 写给不会使用gayhub的：怎么下载
-[点这里下载](https://github.com/CHKZL/DDTV/releases/latest)
+[![](https://user-images.githubusercontent.com/9378097/54915191-8e3f0f80-4f31-11e9-8bbb-b4f3fb0ead6b.png)](https://github.com/CHKZL/DDTV/releases/latest)
 
 ## 功能完成情况
 * 多路直播监控，可自定义监听房间，摸鱼中\直播中一目了然
