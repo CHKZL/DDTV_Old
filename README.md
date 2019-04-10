@@ -37,13 +37,9 @@ DD导播中心
 ### 在更新软件的时候请备份好RoomListConfig.json件，该文件是监控房间配置文件
 
 ## 界面
-主界面
+主界面DD中：
 
-![主界面](https://github.com/CHKZL/DDTV/blob/master/src/1.png)
-
-DD中：
-
-![DD中](https://github.com/CHKZL/DDTV/blob/master/src/2.png)
+![主界面](https://github.com/CHKZL/DDTV/blob/master/src/5.png)
 
 
 开播提示：
