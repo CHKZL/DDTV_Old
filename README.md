@@ -47,7 +47,7 @@ DD导播中心
 ![开播提示](https://github.com/CHKZL/DDTV/blob/master/src/4.png)
 
 ## 兼容性
-需要.net4.7.1环境
+需要.net4.7.1环境  
 如果桌面缩放布局比率不是100%，打开弹幕层可能会出现弹幕显示位置和大小错位的问题。
 
 ## FA♂Q
