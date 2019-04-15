@@ -36,9 +36,9 @@ DD导播中心
 因为我自己平时也在用，所以会默认有一些，如果不需要，选择过后点击删除就行。  
 或者把软件执行文件根目录中的RoomListConfig.json文件删除即可。  
 
-### 在更新软件的时候请备份好RoomListConfig.json件，该文件是监控房间配置文件
-### 在更新软件的时候请备份好RoomListConfig.json件，该文件是监控房间配置文件
-### 在更新软件的时候请备份好RoomListConfig.json件，该文件是监控房间配置文件
+### 在更新软件的时候请备份好RoomListConfig.json文件，该文件是监控房间配置文件
+### 在更新软件的时候请备份好RoomListConfig.json文件，该文件是监控房间配置文件
+### 在更新软件的时候请备份好RoomListConfig.json文件，该文件是监控房间配置文件
 
 ## 界面
 主界面DD中：
