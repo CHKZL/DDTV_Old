@@ -1,4 +1,5 @@
-# DDTV2.0发布！
+# DDTV2.0发布！  
+## 全新的界面和更稳定的功能！  
 
 [点击跳转到2.0发布和下载网页](https://github.com/CHKZL/DDTV2)  
 
