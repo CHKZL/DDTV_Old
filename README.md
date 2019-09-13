@@ -1,7 +1,10 @@
 # DDTV2.0发布！
 
-[点击跳转到2.0发布和下载网页](https://github.com/CHKZL/DDTV)(https://github.com/CHKZL/DDTV)
+[点击跳转到2.0发布和下载网页](https://github.com/CHKZL/DDTV2)  
 
+(https://github.com/CHKZL/DDTV)
+
+**  
 
 # DDTV
 DD导播中心
