@@ -1,11 +1,11 @@
-# 本项目已全部转移到DDTV2，[点击跳转到DDTV2项目页](https://github.com/CHKZL/DDTV2)  
+# 本项目已归档，已经全部迁移至新项目，请跳转到新项目，[点击跳转到DDTV项目页](https://github.com/CHKZL/DDTV)  
 
 # DDTV2.0发布！  
 ## 全新的界面和更稳定的功能！  
 
-[点击跳转到2.0发布和下载网页](https://github.com/CHKZL/DDTV2)  
+[点击跳转到2.0发布和下载网页](https://github.com/CHKZL/DDTV)  
 
-(https://github.com/CHKZL/DDTV2)
+(https://github.com/CHKZL/DDTV)
 
 --
 
